@@ -17,8 +17,8 @@ namespace Lamazon.DataAccess.Repositories
             return _db.Orders
                 .Include(o => o.User)
                 .Include(o => o.OrdersProducts)
-                    .ThenInclude(op => op.Product)
-                .ToList();
+                    .ThenInclude(op => op.Product);
+                
         }
 
         public Order GetById(int id)
