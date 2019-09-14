@@ -9,8 +9,8 @@ using SEDC.Lamazon.DataAccess;
 namespace SEDC.Lamazon.DataAccess.Migrations
 {
     [DbContext(typeof(LamazonDbContext))]
-    [Migration("20190912182533_init")]
-    partial class init
+    [Migration("20190914062204_initWithData")]
+    partial class initWithData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,6 +37,12 @@ namespace SEDC.Lamazon.DataAccess.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Orders");
+
+                    b.HasData(
+                        new { Id = 1, Paid = false, Status = 0, UserId = 3 },
+                        new { Id = 2, Paid = false, Status = 3, UserId = 3 },
+                        new { Id = 3, Paid = false, Status = 1, UserId = 2 }
+                    );
                 });
 
             modelBuilder.Entity("SEDC.Lamazon.Domain.Models.Product", b =>
@@ -57,6 +63,21 @@ namespace SEDC.Lamazon.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new { Id = 1, Category = 2, Description = "Very good phone. Bad batery", Name = "Samsung A40", Price = 200.0 },
+                        new { Id = 2, Category = 2, Description = "Large SSD of high quality", Name = "SSD 1TB", Price = 400.0 },
+                        new { Id = 3, Category = 3, Description = "C# Book for everyone", Name = "C# in depth", Price = 40.0 },
+                        new { Id = 4, Category = 3, Description = "Book for clean code", Name = "Clean Code", Price = 60.0 },
+                        new { Id = 5, Category = 1, Description = "Magical Elixir of Power", Name = "Rakija", Price = 20.0 },
+                        new { Id = 6, Category = 1, Description = "When you have too much Rakija", Name = "Sparkling Water", Price = 2.0 },
+                        new { Id = 7, Category = 0, Description = "All in one pack of appetizers", Name = "Meze", Price = 15.0 },
+                        new { Id = 8, Category = 0, Description = "Stew for good morning", Name = "Stew in a can", Price = 8.0 },
+                        new { Id = 9, Category = 4, Description = "Set of 6 glasses", Name = "Glasses set", Price = 10.0 },
+                        new { Id = 10, Category = 4, Description = "Set of 20 plastic knives and forks", Name = "Plastic knives and forks", Price = 4.0 },
+                        new { Id = 11, Category = 4, Description = "A bag of ice", Name = "Ice", Price = 3.0 },
+                        new { Id = 12, Category = 4, Description = "Plates for the whole family", Name = "Plastic plates", Price = 5.0 }
+                    );
                 });
 
             modelBuilder.Entity("SEDC.Lamazon.Domain.Models.ProductOrder", b =>
@@ -76,6 +97,17 @@ namespace SEDC.Lamazon.DataAccess.Migrations
                     b.HasIndex("OrderId");
 
                     b.ToTable("ProductOrders");
+
+                    b.HasData(
+                        new { ProductId = 1, OrderId = 1, Id = 1 },
+                        new { ProductId = 3, OrderId = 1, Id = 2 },
+                        new { ProductId = 5, OrderId = 1, Id = 3 },
+                        new { ProductId = 7, OrderId = 2, Id = 4 },
+                        new { ProductId = 9, OrderId = 2, Id = 5 },
+                        new { ProductId = 11, OrderId = 3, Id = 6 },
+                        new { ProductId = 12, OrderId = 3, Id = 7 },
+                        new { ProductId = 5, OrderId = 3, Id = 8 }
+                    );
                 });
 
             modelBuilder.Entity("SEDC.Lamazon.Domain.Models.Role", b =>
@@ -90,6 +122,12 @@ namespace SEDC.Lamazon.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new { Id = 1, Name = "Admin" },
+                        new { Id = 2, Name = "Supplier" },
+                        new { Id = 3, Name = "Customer" }
+                    );
                 });
 
             modelBuilder.Entity("SEDC.Lamazon.Domain.Models.User", b =>
@@ -120,6 +158,12 @@ namespace SEDC.Lamazon.DataAccess.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new { Id = 1, Address = "n/a", FirstName = "System", LastName = "Admin", Password = "sa", RoleId = 1, Username = "sa" },
+                        new { Id = 2, Address = "Fake Street 13 3/8", FirstName = "Dejan", LastName = "Jovanov", Password = "lozinka", RoleId = 2, Username = "dejan.jovanov" },
+                        new { Id = 3, Address = "Fake Street 69", FirstName = "Dejan", LastName = "Blazheski", Password = "123456", RoleId = 3, Username = "dejan.blazheski" }
+                    );
                 });
 
             modelBuilder.Entity("SEDC.Lamazon.Domain.Models.Order", b =>

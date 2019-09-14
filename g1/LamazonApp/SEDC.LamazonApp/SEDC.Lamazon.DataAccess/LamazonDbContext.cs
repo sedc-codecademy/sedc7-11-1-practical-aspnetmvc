@@ -126,54 +126,18 @@ namespace SEDC.Lamazon.DataAccess
             );
 
             modelBuilder.Entity<Product>().HasData(
-                new Product
-                {
-                    Id = 1,
-                    Name = "Epilator",
-                    Description = "A small tool for removing unwanted hair in unwanted places",
-                    Category = CategoryType.Electronics,
-                    Price = 30
-                },
-                new Product
-                {
-                    Id = 2,
-                    Name = "Headphones",
-                    Description = "For IPhone 11Pro",
-                    Category = CategoryType.Electronics,
-                    Price = 5
-                },
-                new Product
-                {
-                    Id = 3,
-                    Name = "Exploding Kittens",
-                    Description = "A board game",
-                    Category = CategoryType.Other,
-                    Price = 20
-                },
-                new Product
-                {
-                    Id = 4,
-                    Name = "Martini",
-                    Description = "A cool drink delivered to your door",
-                    Category = CategoryType.Drinks,
-                    Price = 10
-                },
-                new Product
-                {
-                    Id = 5,
-                    Name = "Hamburger",
-                    Description = "Meat, Salads, Fries",
-                    Category = CategoryType.Food,
-                    Price = 5
-                },
-                new Product
-                {
-                    Id = 6,
-                    Name = "Enterprise Integration Patterns",
-                    Description = "by Gregor Hohpe and Bobby Woolf",
-                    Category = CategoryType.Books,
-                    Price = 50
-                }
+                new Product() { Id = 1, Name = "Samsung A40", Price = 200, Description = "Very good phone. Bad batery", Category = CategoryType.Electronics },
+                new Product() { Id = 2, Name = "SSD 1TB", Price = 400, Description = "Large SSD of high quality", Category = CategoryType.Electronics },
+                new Product() { Id = 3, Name = "C# in depth", Price = 40, Description = "C# Book for everyone", Category = CategoryType.Books },
+                new Product() { Id = 4, Name = "Clean Code", Price = 60, Description = "Book for clean code", Category = CategoryType.Books },
+                new Product() { Id = 5, Name = "Rakija", Price = 20, Description = "Magical Elixir of Power", Category = CategoryType.Drinks },
+                new Product() { Id = 6, Name = "Sparkling Water", Price = 2, Description = "When you have too much Rakija", Category = CategoryType.Drinks },
+                new Product() { Id = 7, Name = "Meze", Price = 15, Description = "All in one pack of appetizers", Category = CategoryType.Food },
+                new Product() { Id = 8, Name = "Stew in a can", Price = 8, Description = "Stew for good morning", Category = CategoryType.Food },
+                new Product() { Id = 9, Name = "Glasses set", Price = 10, Description = "Set of 6 glasses", Category = CategoryType.Other },
+                new Product() { Id = 10, Name = "Plastic knives and forks", Price = 4, Description = "Set of 20 plastic knives and forks", Category = CategoryType.Other },
+                new Product() { Id = 11, Name = "Ice", Price = 3, Description = "A bag of ice", Category = CategoryType.Other },
+                new Product() { Id = 12, Name = "Plastic plates", Price = 5, Description = "Plates for the whole family", Category = CategoryType.Other }
             );
 
             modelBuilder.Entity<ProductOrder>().HasData(
@@ -202,13 +166,13 @@ namespace SEDC.Lamazon.DataAccess
                 {
                     Id = 4,
                     OrderId = 2,
-                    ProductId = 1
+                    ProductId = 7
                 },
                 new ProductOrder
                 {
                     Id = 5,
                     OrderId = 2,
-                    ProductId = 2
+                    ProductId = 9
                 },
 
                 //Order 3
@@ -216,19 +180,19 @@ namespace SEDC.Lamazon.DataAccess
                 {
                     Id = 6,
                     OrderId = 3,
-                    ProductId = 4
+                    ProductId = 11
                 },
                 new ProductOrder
                 {
                     Id = 7,
                     OrderId = 3,
-                    ProductId = 5
+                    ProductId = 12
                 },
                 new ProductOrder
                 {
                     Id = 8,
                     OrderId = 3,
-                    ProductId = 6
+                    ProductId = 5
                 }
             );
 

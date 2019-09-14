@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SEDC.Lamazon.DataAccess.Migrations
 {
-    public partial class init : Migration
+    public partial class initWithData : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -106,6 +106,80 @@ namespace SEDC.Lamazon.DataAccess.Migrations
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "Category", "Description", "Name", "Price" },
+                values: new object[,]
+                {
+                    { 1, 2, "Very good phone. Bad batery", "Samsung A40", 200.0 },
+                    { 2, 2, "Large SSD of high quality", "SSD 1TB", 400.0 },
+                    { 3, 3, "C# Book for everyone", "C# in depth", 40.0 },
+                    { 4, 3, "Book for clean code", "Clean Code", 60.0 },
+                    { 5, 1, "Magical Elixir of Power", "Rakija", 20.0 },
+                    { 6, 1, "When you have too much Rakija", "Sparkling Water", 2.0 },
+                    { 7, 0, "All in one pack of appetizers", "Meze", 15.0 },
+                    { 8, 0, "Stew for good morning", "Stew in a can", 8.0 },
+                    { 9, 4, "Set of 6 glasses", "Glasses set", 10.0 },
+                    { 10, 4, "Set of 20 plastic knives and forks", "Plastic knives and forks", 4.0 },
+                    { 11, 4, "A bag of ice", "Ice", 3.0 },
+                    { 12, 4, "Plates for the whole family", "Plastic plates", 5.0 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Admin" },
+                    { 2, "Supplier" },
+                    { 3, "Customer" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Address", "FirstName", "LastName", "Password", "RoleId", "Username" },
+                values: new object[] { 1, "n/a", "System", "Admin", "sa", 1, "sa" });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Address", "FirstName", "LastName", "Password", "RoleId", "Username" },
+                values: new object[] { 2, "Fake Street 13 3/8", "Dejan", "Jovanov", "lozinka", 2, "dejan.jovanov" });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Address", "FirstName", "LastName", "Password", "RoleId", "Username" },
+                values: new object[] { 3, "Fake Street 69", "Dejan", "Blazheski", "123456", 3, "dejan.blazheski" });
+
+            migrationBuilder.InsertData(
+                table: "Orders",
+                columns: new[] { "Id", "Paid", "Status", "UserId" },
+                values: new object[] { 3, false, 1, 2 });
+
+            migrationBuilder.InsertData(
+                table: "Orders",
+                columns: new[] { "Id", "Paid", "Status", "UserId" },
+                values: new object[] { 1, false, 0, 3 });
+
+            migrationBuilder.InsertData(
+                table: "Orders",
+                columns: new[] { "Id", "Paid", "Status", "UserId" },
+                values: new object[] { 2, false, 3, 3 });
+
+            migrationBuilder.InsertData(
+                table: "ProductOrders",
+                columns: new[] { "ProductId", "OrderId", "Id" },
+                values: new object[,]
+                {
+                    { 11, 3, 6 },
+                    { 12, 3, 7 },
+                    { 5, 3, 8 },
+                    { 1, 1, 1 },
+                    { 3, 1, 2 },
+                    { 5, 1, 3 },
+                    { 7, 2, 4 },
+                    { 9, 2, 5 }
                 });
 
             migrationBuilder.CreateIndex(
