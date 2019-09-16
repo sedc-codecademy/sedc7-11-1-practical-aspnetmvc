@@ -11,7 +11,6 @@ namespace Lamazon.WebModels.ViewModels
         public int Id { get; set; }
         public StatusTypeViewModel Status { get; set; }
         public double Price => Products.Sum(p => p.Price);
-        public int UserId { get; set; }
         public UserViewModel User { get; set; }
         public List<ProductViewModel> Products { get; set; }
         //Plus invoice

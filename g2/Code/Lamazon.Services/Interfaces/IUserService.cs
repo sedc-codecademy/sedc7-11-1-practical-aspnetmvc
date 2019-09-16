@@ -9,7 +9,7 @@ namespace Lamazon.Services.Interfaces
     {
         void Register(RegisterViewModel registerModel);
         void Login(LoginViewModel loginModel);
-        UserViewModel GetCurrentUser(string username);
         void Logout();
+        UserViewModel GetCurrentUser(string username);
     }
 }

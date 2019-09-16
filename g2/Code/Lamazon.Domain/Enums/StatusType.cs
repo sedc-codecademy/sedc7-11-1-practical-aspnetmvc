@@ -9,7 +9,8 @@ namespace Lamazon.Domain.Enums
         Init,
         Processing,
         Confirmed,
+        Declined,
         Delivered,
-        Declined
+        Canceled
     }
 }

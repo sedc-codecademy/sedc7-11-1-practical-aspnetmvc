@@ -68,6 +68,7 @@ namespace Lamazon.DataAccess
                 {
                     Id = 1,
                     Username = "sa",
+                    Email = "sa@sa.com",
                     Password = "sa",
                     Firstname = "System",
                     Lastname = "Admin",
@@ -78,6 +79,7 @@ namespace Lamazon.DataAccess
                 {
                     Id = 2,
                     Username = "stojanche.m",
+                    Email = "stojanche.m@sedc.com",
                     Password = "123456",
                     Firstname = "Stojanche",
                     Lastname = "Mitrevski",
@@ -88,6 +90,7 @@ namespace Lamazon.DataAccess
                 {
                     Id = 3,
                     Username = "dejan.blazheski",
+                    Email = "dejan.blazheski@sedc.com",
                     Password = "123456",
                     Firstname = "Dejan",
                     Lastname = "Blazheski",
@@ -98,6 +101,7 @@ namespace Lamazon.DataAccess
                 {
                     Id = 4,
                     Username = "dejan.jovanov",
+                    Email = "dejan.jovanov@sedc.com",
                     Password = "123456",
                     Firstname = "Dejan",
                     Lastname = "Jovanov",
@@ -110,6 +114,7 @@ namespace Lamazon.DataAccess
                 new Order
                 {
                     Id = 1,
+                    DateCreated = DateTime.UtcNow,
                     Status = StatusType.Init,
                     Paid = false,
                     UserId = 3
@@ -117,6 +122,7 @@ namespace Lamazon.DataAccess
                 new Order
                 {
                     Id = 2,
+                    DateCreated = DateTime.UtcNow,
                     Status = StatusType.Confirmed,
                     Paid = false,
                     UserId = 3
@@ -124,6 +130,7 @@ namespace Lamazon.DataAccess
                 new Order
                 {
                     Id = 3,
+                    DateCreated = DateTime.UtcNow,
                     Status = StatusType.Processing,
                     Paid = false,
                     UserId = 4

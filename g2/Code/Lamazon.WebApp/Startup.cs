@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Lamazon.DataAccess;
+using Lamazon.DataAccess.Interfaces;
+using Lamazon.DataAccess.Repositories;
 using Lamazon.Domain.Models;
+using Lamazon.Services;
+using Lamazon.Services.Helpers;
+using Lamazon.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -34,11 +39,22 @@ namespace Lamazon.WebApp
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
             services.AddDbContext<LamazonDbContext>(ob => ob.UseSqlServer(
                 Configuration.GetConnectionString("LamazonDbConnection")
             ));
+
+            services.AddTransient<IUserRepository<User>, UserRespository>();
+            services.AddTransient<IRepository<Product>, ProductRepository>();
+            services.AddTransient<IRepository<Order>, OrderRepository>();
+            services.AddTransient<IRepository<OrderProduct>, OrderProductRepository>();
+
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IOrderService, OrderService>();
+
+            services.AddTransient<ManualMapper>();
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,7 +78,7 @@ namespace Lamazon.WebApp
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Products}/{action=Index}/{id?}");
+                    template: "{controller=Products}/{action=Index}");
             });
         }
     }

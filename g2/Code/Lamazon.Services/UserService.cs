@@ -1,5 +1,6 @@
 ﻿using Lamazon.DataAccess.Interfaces;
 using Lamazon.Domain.Models;
+using Lamazon.Services.Helpers;
 using Lamazon.Services.Interfaces;
 using Lamazon.WebModels.ViewModels;
 using System;
@@ -11,33 +12,32 @@ namespace Lamazon.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository<User> _userRepo;
+        private readonly ManualMapper _mapper;
 
-        public UserService(IUserRepository<User> userRepo)
+        public UserService(IUserRepository<User> userRepo, ManualMapper mapper)
         {
             _userRepo = userRepo;
+            _mapper = mapper;
         }
 
         public void Register(RegisterViewModel registerModel)
         {
-            if (_userRepo.GetByUsername(registerModel.Username) == null)
+            if (_userRepo.GetByUsername(registerModel.Username) != null)
                 throw new Exception("Username already exists!");
             if (registerModel.Password != registerModel.ConfirmPassword)
                 throw new Exception("Passwords does not match!");
 
-            User user = new User
-            {
-                Username = registerModel.Username,
-                Password = registerModel.Password,
-                Firstname = registerModel.FirstName,
-                Lastname = registerModel.LastName,
-                Address = registerModel.Address,
-                RoleId = 3
-            };
-
-            _userRepo.Insert(user);
+            _userRepo.Insert(
+                _mapper.UserToDomainModel(registerModel)
+            );
         }
 
         public void Login(LoginViewModel loginModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Logout()
         {
             throw new NotImplementedException();
         }
@@ -47,20 +47,8 @@ namespace Lamazon.Services
             User user = _userRepo.GetByUsername(username);
             if (user == null)
                 throw new Exception("User does not exists!");
-            
-            UserViewModel userViewModel = new UserViewModel
-            {
-                Username = user.Username,
-                FullName = $"{user.Firstname} {user.Lastname}",
-                Address = user.Address
-            };
 
-            return userViewModel;
-        }
-
-        public void Logout()
-        {
-            throw new NotImplementedException();
+            return _mapper.UserToViewModel(user);
         }
     }
 }

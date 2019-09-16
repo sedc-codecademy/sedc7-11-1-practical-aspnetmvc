@@ -17,8 +17,8 @@ namespace Lamazon.DataAccess.Repositories
             return _db.Orders
                 .Include(o => o.User)
                 .Include(o => o.OrdersProducts)
-                    .ThenInclude(op => op.Product);
-                
+                    .ThenInclude(op => op.Product)
+                .ToList();
         }
 
         public Order GetById(int id)
@@ -44,7 +44,10 @@ namespace Lamazon.DataAccess.Repositories
 
         public int Delete(int id)
         {
-            var entity = GetById(id);
+            var entity = _db.Orders.FirstOrDefault(o => o.Id == id); ;
+            if (entity == null)
+                return -1;
+
             _db.Orders.Remove(entity);
             return _db.SaveChanges();
         }
