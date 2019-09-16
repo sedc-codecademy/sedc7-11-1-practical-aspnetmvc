@@ -1,6 +1,6 @@
 using System;
 
-namespace Lamazon.WebApp.Models
+namespace Lamazon.WebModels.ViewModels
 {
     public class ErrorViewModel
     {

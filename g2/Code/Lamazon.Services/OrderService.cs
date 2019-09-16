@@ -1,6 +1,7 @@
 ﻿using Lamazon.DataAccess.Interfaces;
 using Lamazon.Domain.Enums;
 using Lamazon.Domain.Models;
+using Lamazon.Services.Helpers;
 using Lamazon.Services.Interfaces;
 using Lamazon.WebModels.Enums;
 using Lamazon.WebModels.ViewModels;
@@ -14,101 +15,52 @@ namespace Lamazon.Services
     public class OrderService : IOrderService
     {
         private readonly IRepository<Order> _orderRepo;
+        private readonly IRepository<OrderProduct> _orderProductRepo;
+        private readonly ManualMapper _mapper;
 
-        public OrderService(IRepository<Order> orderRepo)
+        public OrderService(IRepository<Order> orderRepo, IRepository<OrderProduct> orderProductRepo, ManualMapper mapper)
         {
             _orderRepo = orderRepo;
+            _orderProductRepo = orderProductRepo;
+            _mapper = mapper;
         }
 
         public IEnumerable<OrderViewModel> GetAllOrders()
         {
             return _orderRepo.GetAll()
-                .Select(o =>
-                    new OrderViewModel
-                    {
-                        Id = o.Id,
-                        Status = (StatusTypeViewModel)o.Status,
-                        User = new UserViewModel
-                        {
-                            Id = o.User.Id,
-                            Username = o.User.Username,
-                            FullName = $"{o.User.Firstname} {o.User.Lastname}",
-                            Address = o.User.Address
-                        },
-                        Products = o.OrdersProducts.Select(op => new ProductViewModel
-                        {
-                            Id = op.Product.Id,
-                            Name = op.Product.Name,
-                            Description = op.Product.Description,
-                            Category = (CategoryTypeViewModel)op.Product.Category,
-                            Price = op.Product.Price
-                        }).ToList()
-                    }
-            );
+                .Select(o => _mapper.OrderToViewModel(o))
+                .ToList();
         }
 
         public OrderViewModel GetOrderById(int id)
         {
             Order order = _orderRepo.GetById(id);
+            if (order == null)
+                throw new Exception("Order not found");
 
-            return new OrderViewModel
-            {
-                Id = order.Id,
-                Status = (StatusTypeViewModel)order.Status,
-                User = new UserViewModel
-                {
-                    Id = order.User.Id,
-                    Username = order.User.Username,
-                    FullName = $"{order.User.Firstname} {order.User.Lastname}",
-                    Address = order.User.Address
-                },
-                Products = order.OrdersProducts.Select(op => new ProductViewModel
-                {
-                    Id = op.Product.Id,
-                    Name = op.Product.Name,
-                    Description = op.Product.Description,
-                    Category = (CategoryTypeViewModel)op.Product.Category,
-                    Price = op.Product.Price
-                }).ToList()
-            };
-        }
-
-        public void CreateOrder(OrderViewModel order)
-        {
-            Order orderDomain = new Order
-            {
-                Status = StatusType.Init,
-                Paid = false,
-                UserId = order.UserId,
-            };
-
-            _orderRepo.Insert(orderDomain);
+            return _mapper.OrderToViewModel(order);
         }
 
         public OrderViewModel GetCurrentOrder()
         {
-            Order order = _orderRepo.GetAll().LastOrDefault();
-
-            return new OrderViewModel
+            Order order = _orderRepo.GetAll()
+                .LastOrDefault();
+            if (order == null)
+                throw new Exception("No orders. Please create at least one order");
+            if (order.Status != StatusType.Init)
             {
-                Id = order.Id,
-                Status = (StatusTypeViewModel)order.Status,
-                User = new UserViewModel
-                {
-                    Id = order.User.Id,
-                    Username = order.User.Username,
-                    FullName = $"{order.User.Firstname} {order.User.Lastname}",
-                    Address = order.User.Address
-                },
-                Products = order.OrdersProducts.Select(op => new ProductViewModel
-                {
-                    Id = op.Product.Id,
-                    Name = op.Product.Name,
-                    Description = op.Product.Description,
-                    Category = (CategoryTypeViewModel)op.Product.Category,
-                    Price = op.Product.Price
-                }).ToList()
-            };
+                CreateOrder(new OrderViewModel { User = new UserViewModel { Id = 1 } });
+                return GetCurrentOrder();
+            }
+
+            return _mapper.OrderToViewModel(order);
+        }
+
+        public void CreateOrder(OrderViewModel order)
+        {
+            _orderRepo.Insert(
+                _mapper.OrderToDomainModel(order)
+            );
         }
 
         public void ChangeStatus(int orderId, StatusTypeViewModel status)
@@ -124,14 +76,16 @@ namespace Lamazon.Services
 
         public void AddProduct(int orderId, int productId)
         {
-            //Order order = _orderRepo.GetById(orderId);
-            //order.OrdersProducts.
-            throw new NotImplementedException();
+            _orderProductRepo.Insert(
+                _mapper.OrderProductToDomain(orderId, productId)
+            );
         }
 
         public void RemoveProduct(int orderId, int productId)
         {
-            throw new NotImplementedException();
+            _orderProductRepo.Delete(
+                int.Parse($"{orderId}{productId}")
+            );
         }
     }
 }

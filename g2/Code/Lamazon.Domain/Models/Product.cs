@@ -16,9 +16,9 @@ namespace Lamazon.Domain.Models
         public string Name { get; set; }
         public string Description { get; set; }
         [Required]
-        public double Price { get; set; }
-        [Required]
         public CategoryType Category { get; set; }
+        [Required]
+        public double Price { get; set; }
         public virtual IEnumerable<OrderProduct> OrdersProducts { get; set; }
     }
 }

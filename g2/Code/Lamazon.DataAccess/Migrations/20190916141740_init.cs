@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Lamazon.DataAccess.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,8 +16,8 @@ namespace Lamazon.DataAccess.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: true),
-                    Price = table.Column<double>(nullable: false),
-                    Category = table.Column<int>(nullable: false)
+                    Category = table.Column<int>(nullable: false),
+                    Price = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -43,6 +44,7 @@ namespace Lamazon.DataAccess.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Username = table.Column<string>(nullable: false),
+                    Email = table.Column<string>(nullable: false),
                     Password = table.Column<string>(nullable: false),
                     Firstname = table.Column<string>(nullable: false),
                     Lastname = table.Column<string>(nullable: false),
@@ -66,6 +68,7 @@ namespace Lamazon.DataAccess.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DateCreated = table.Column<DateTime>(nullable: false),
                     Status = table.Column<int>(nullable: false),
                     Paid = table.Column<bool>(nullable: false),
                     UserId = table.Column<int>(nullable: false)
@@ -130,29 +133,29 @@ namespace Lamazon.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "Address", "Firstname", "Lastname", "Password", "RoleId", "Username" },
+                columns: new[] { "Id", "Address", "Email", "Firstname", "Lastname", "Password", "RoleId", "Username" },
                 values: new object[,]
                 {
-                    { 1, "n/a", "System", "Admin", "sa", 1, "sa" },
-                    { 2, "n/a", "Stojanche", "Mitrevski", "123456", 2, "stojanche.m" },
-                    { 3, "Fake Street 69", "Dejan", "Blazheski", "123456", 3, "dejan.blazheski" },
-                    { 4, "Fake Street 13 3/8", "Dejan", "Jovanov", "123456", 3, "dejan.jovanov" }
+                    { 1, "n/a", "sa@sa.com", "System", "Admin", "sa", 1, "sa" },
+                    { 2, "n/a", "stojanche.m@sedc.com", "Stojanche", "Mitrevski", "123456", 2, "stojanche.m" },
+                    { 3, "Fake Street 69", "dejan.blazheski@sedc.com", "Dejan", "Blazheski", "123456", 3, "dejan.blazheski" },
+                    { 4, "Fake Street 13 3/8", "dejan.jovanov@sedc.com", "Dejan", "Jovanov", "123456", 3, "dejan.jovanov" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Orders",
-                columns: new[] { "Id", "Paid", "Status", "UserId" },
-                values: new object[] { 1, false, 0, 3 });
+                columns: new[] { "Id", "DateCreated", "Paid", "Status", "UserId" },
+                values: new object[] { 1, new DateTime(2019, 9, 16, 14, 17, 39, 681, DateTimeKind.Utc), false, 0, 3 });
 
             migrationBuilder.InsertData(
                 table: "Orders",
-                columns: new[] { "Id", "Paid", "Status", "UserId" },
-                values: new object[] { 2, false, 2, 3 });
+                columns: new[] { "Id", "DateCreated", "Paid", "Status", "UserId" },
+                values: new object[] { 2, new DateTime(2019, 9, 16, 14, 17, 39, 681, DateTimeKind.Utc), false, 2, 3 });
 
             migrationBuilder.InsertData(
                 table: "Orders",
-                columns: new[] { "Id", "Paid", "Status", "UserId" },
-                values: new object[] { 3, false, 1, 4 });
+                columns: new[] { "Id", "DateCreated", "Paid", "Status", "UserId" },
+                values: new object[] { 3, new DateTime(2019, 9, 16, 14, 17, 39, 681, DateTimeKind.Utc), false, 1, 4 });
 
             migrationBuilder.InsertData(
                 table: "OrdersProducts",

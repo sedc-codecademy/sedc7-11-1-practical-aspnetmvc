@@ -13,7 +13,8 @@ namespace Lamazon.DataAccess.Repositories
 
         public IEnumerable<User> GetAll()
         {
-            return _db.Users;
+            return _db.Users
+                .ToList();
         }
 
         public User GetById(int id)
@@ -42,7 +43,10 @@ namespace Lamazon.DataAccess.Repositories
 
         public int Delete(int id)
         {
-            var entity = GetById(id);
+            var entity = _db.Users.FirstOrDefault(u => u.Id == id);
+            if (entity == null)
+                return -1;
+
             _db.Users.Remove(entity);
             return _db.SaveChanges();
         }

@@ -13,6 +13,8 @@ namespace Lamazon.Domain.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required]
+        public DateTime DateCreated { get; set; }
+        [Required]
         public StatusType Status { get; set; }
         [Required]
         public bool Paid { get; set; }

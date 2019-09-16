@@ -1,3 +1,8 @@
-﻿@model IList<Lamazon.Domain.Models.Product>
+﻿@model IEnumerable<ProductViewModel>
 
 <h2>Products</h2>
+
+@foreach (var item in Model)
+{
+    <span>@item.Name</span> <br />
+}

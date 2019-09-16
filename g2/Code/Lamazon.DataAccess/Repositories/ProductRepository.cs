@@ -20,7 +20,7 @@ namespace Lamazon.DataAccess.Repositories
 
         public Product GetById(int id)
         {
-            return _db.Products.ToList()
+            return _db.Products
                 .FirstOrDefault(p => p.Id == id);
         }
 
@@ -38,7 +38,10 @@ namespace Lamazon.DataAccess.Repositories
 
         public int Delete(int id)
         {
-            var entity = GetById(id);
+            var entity = _db.Products.FirstOrDefault(p => p.Id == id);
+            if (entity == null)
+                return -1;
+
             _db.Products.Remove(entity);
             return _db.SaveChanges();
         }
