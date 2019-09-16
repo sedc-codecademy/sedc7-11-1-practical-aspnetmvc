@@ -19,7 +19,7 @@ namespace Domain.Models
         public CategoryType Category { get; set; }
 
         //relations
-        public int OrderId { get; set; }
+        public int OrderId { get; set; } //review
         public List<ProductOrder> ProductOrders { get; set; }
     }
 }
