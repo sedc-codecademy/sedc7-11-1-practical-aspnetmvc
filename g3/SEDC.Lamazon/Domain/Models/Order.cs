@@ -20,7 +20,7 @@ namespace Domain.Models
         public double Price => ProductOrders.Sum(x => x.Order.Price);
 
         //relations
-        public int UserId{ get; set; }
+        public string UserId{ get; set; }
         public User User{ get; set; }
 
         public Invoice Invoice { get; set; }

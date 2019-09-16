@@ -37,8 +37,8 @@ namespace WebApplication
 
             // using appsettings
             var appSettings = appConfig.Get<AppSettings>();
-            
 
+            DIModule.RegisterModule(services, appSettings.LamazonDbContext);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
