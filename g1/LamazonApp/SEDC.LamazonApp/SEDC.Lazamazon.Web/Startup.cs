@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SEDC.Lamazon.DataAccess;
+using SEDC.Lamazon.Services.Helpers;
 
 namespace SEDC.Lazamazon.Web
 {
@@ -31,12 +32,26 @@ namespace SEDC.Lazamazon.Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            
+
+            //Configuring AppSettings section
+            var appConfig = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appConfig);
+
+            //Using AppSettings section
+            var appSettings = appConfig.Get<AppSettings>();
+
+            DIModule.RegisterModule(services, appSettings.LamazonDbConnectionString);
+
+
+
+
+
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddDbContext<LamazonDbContext>(ob => ob.UseSqlServer(
-                Configuration.GetConnectionString("LamazonDbConnection")
-            ));
+            //services.AddDbContext<LamazonDbContext>(ob => ob.UseSqlServer(
+            //    Configuration.GetConnectionString("LamazonDbConnection")
+            //));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

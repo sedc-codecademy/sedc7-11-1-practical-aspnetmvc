@@ -1,11 +1,13 @@
-﻿using System;
+﻿using SEDC.Lamazon.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace SEDC.Lamazon.DataAccess.Interfaces
 {
-    public interface IUserRepository<T>: IRepository<T>
+    public interface IUserRepository
     {
-        T GetByUsername(string username);
+        User GetByUsername(string username);
+        User GetById(string id);
     }
 }

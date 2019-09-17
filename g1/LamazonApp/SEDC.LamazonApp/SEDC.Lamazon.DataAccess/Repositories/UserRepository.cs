@@ -2,42 +2,51 @@
 using SEDC.Lamazon.Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace SEDC.Lamazon.DataAccess.Repositories
 {
-    public class UserRepository : BaseRepository, IUserRepository<User>
+    public class UserRepository : BaseRepository, IUserRepository
     {
         public UserRepository(LamazonDbContext context) : base(context) { }
        
         public IEnumerable<User> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Users;
         }
 
-        public User GetById(int id)
+        public User GetById(string id)
         {
-            throw new NotImplementedException();
+            return _context.Users.SingleOrDefault(x => x.Id == id);
         }
 
         public User GetByUsername(string username)
         {
-            throw new NotImplementedException();
+            return _context.Users.SingleOrDefault(x => x.UserName == username);
         }
 
         public int Insert(User entity)
         {
-            throw new NotImplementedException();
+            _context.Users.Add(entity);
+            return _context.SaveChanges();
         }
 
         public int Update(User entity)
         {
-            throw new NotImplementedException();
+            _context.Users.Update(entity);
+            return _context.SaveChanges();
         }
 
-        public int Delete(int id)
+        public int Delete(string id)
         {
-            throw new NotImplementedException();
+            User user = _context.Users.SingleOrDefault(x => x.Id == id);
+
+            if (user == null)
+                return -1;
+
+            _context.Users.Remove(user);
+            return _context.SaveChanges();
         }
     }
 }

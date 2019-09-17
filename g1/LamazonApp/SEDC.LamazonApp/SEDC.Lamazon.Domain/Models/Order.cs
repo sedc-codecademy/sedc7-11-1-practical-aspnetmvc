@@ -13,14 +13,13 @@ namespace SEDC.Lamazon.Domain.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        public DateTime DateOfOrder { get; set; }
+
         [Required]
         public StatusType Status { get; set; }
-
+        
         [Required]
-        public bool Paid { get; set; }
-
-        [Required]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         public virtual User User { get; set; }
 
