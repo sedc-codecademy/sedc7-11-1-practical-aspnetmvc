@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(LamazonDbContext))]
-    [Migration("20190916191944_init")]
+    [Migration("20190918153420_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -166,6 +166,10 @@ namespace DataAccess.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new { Id = "aba8b1f6-c87e-4d93-83a3-5c649949c164", AccessFailedCount = 0, ConcurrencyStamp = "e980bfd0-c340-43dc-81cc-63e19544a2a0", Email = "supplier@email.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "SUPPLIER@EMAIL.COM", NormalizedUserName = "SUPPLIER", PasswordHash = "AQAAAAEAACcQAAAAEC3BI89K435RoCOxCTx3CM65PTQdB8p4k0cgDTf1Yj+LS0mD2esIqlzQe/TGOGgvpA==", PhoneNumberConfirmed = false, SecurityStamp = "", TwoFactorEnabled = false, UserName = "supplier" }
+                    );
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -192,9 +196,8 @@ namespace DataAccess.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-                        new { Id = "f8e26a54-cbff-45bd-afff-6b66c5b08a46", ConcurrencyStamp = "725cf4f9-778c-471d-bfd6-c518ba99d0cc" },
-                        new { Id = "8ac5af88-1ba3-4791-9aea-cbf041661683", ConcurrencyStamp = "e4302299-c5de-4595-b757-4a7f59ead68f", Name = "admin", NormalizedName = "ADMIN" },
-                        new { Id = "fd90cc1f-518e-4513-a6e7-063c30a6eb2a", ConcurrencyStamp = "f2bde857-bfb7-40b4-bb08-80d1181006d3", Name = "user", NormalizedName = "USER" }
+                        new { Id = "fa752333-0811-423f-bb58-021a0f4fc56c", ConcurrencyStamp = "c314ad22-bfca-4550-bfa3-1ba4b33d38b5", Name = "admin", NormalizedName = "ADMIN" },
+                        new { Id = "dd4406c9-fa32-4015-aaab-b08b338f92f9", ConcurrencyStamp = "a61e76a2-b8a2-4617-973a-751271ba57ec", Name = "user", NormalizedName = "USER" }
                     );
                 });
 
@@ -267,6 +270,10 @@ namespace DataAccess.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new { UserId = "aba8b1f6-c87e-4d93-83a3-5c649949c164", RoleId = "fa752333-0811-423f-bb58-021a0f4fc56c" }
+                    );
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
