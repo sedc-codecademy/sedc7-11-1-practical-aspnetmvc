@@ -47,20 +47,7 @@ namespace DataAccess
             string roleId = Guid.NewGuid().ToString();
             string userRoleId = Guid.NewGuid().ToString();
 
-            //supplier
-            builder.Entity<IdentityRole>().HasData(new User
-            {
-                Id = supplierId,
-                UserName = "supplier",
-                NormalizedUserName = "SUPPLIER",
-                Email = "supplier@email.com",
-                NormalizedEmail = "SUPPLIER@EMAIL.COM",
-                EmailConfirmed = true,
-                PasswordHash = "P@ssw0rd",
-                SecurityStamp = string.Empty
-            });
-
-            // set roles
+            // seeding roles
             builder.Entity<IdentityRole>().HasData(
             new IdentityRole
             {
@@ -73,6 +60,29 @@ namespace DataAccess
                 Id = userRoleId,
                 Name = "user",
                 NormalizedName = "USER"
+            });
+
+            //password hasher
+            var hasher = new PasswordHasher<User>();
+
+            //supplier
+            builder.Entity<User>().HasData(new User
+            {
+                Id = supplierId,
+                UserName = "supplier",
+                NormalizedUserName = "SUPPLIER",
+                Email = "supplier@email.com",
+                NormalizedEmail = "SUPPLIER@EMAIL.COM",
+                EmailConfirmed = true,
+                PasswordHash = hasher.HashPassword(null, "P@ssw0rd"),
+                SecurityStamp = string.Empty
+            });
+
+            //add role to suplier user
+            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = roleId,
+                UserId = supplierId
             });
 
             // seed products

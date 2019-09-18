@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain.Enumerations
+namespace WebModels.Enumerations
 {
-    public enum PaymentType
+    public enum PaymentViewType
     {
         Cash = 0,
         Card
