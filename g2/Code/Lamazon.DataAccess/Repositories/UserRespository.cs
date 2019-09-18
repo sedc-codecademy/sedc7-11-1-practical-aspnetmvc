@@ -17,7 +17,7 @@ namespace Lamazon.DataAccess.Repositories
                 .ToList();
         }
 
-        public User GetById(int id)
+        public User GetById(string id)
         {
             return _db.Users
                 .FirstOrDefault(u => u.Id == id);
@@ -26,7 +26,7 @@ namespace Lamazon.DataAccess.Repositories
         public User GetByUsername(string username)
         {
             return _db.Users
-                .FirstOrDefault(u => u.Username == username);
+                .FirstOrDefault(u => u.UserName == username);
         }
 
         public int Insert(User entity)
@@ -41,7 +41,7 @@ namespace Lamazon.DataAccess.Repositories
             return _db.SaveChanges();
         }
 
-        public int Delete(int id)
+        public int Delete(string id)
         {
             var entity = _db.Users.FirstOrDefault(u => u.Id == id);
             if (entity == null)

@@ -32,6 +32,14 @@ namespace Lamazon.Services
                 .ToList();
         }
 
+        public IEnumerable<OrderViewModel> GetUserOrders(string userId)
+        {
+            return _orderRepo.GetAll()
+                .Where(o => o.UserId == userId)
+                .Select(o => _mapper.OrderToViewModel(o))
+                .ToList();
+        }
+
         public OrderViewModel GetOrderById(int id)
         {
             Order order = _orderRepo.GetById(id);
@@ -41,16 +49,16 @@ namespace Lamazon.Services
             return _mapper.OrderToViewModel(order);
         }
 
-        public OrderViewModel GetCurrentOrder()
+        public OrderViewModel GetCurrentOrder(string userId)
         {
             Order order = _orderRepo.GetAll()
-                .LastOrDefault();
+                .LastOrDefault(o => o.UserId == userId);
             if (order == null)
                 throw new Exception("No orders. Please create at least one order");
             if (order.Status != StatusType.Init)
             {
-                CreateOrder(new OrderViewModel { User = new UserViewModel { Id = 1 } });
-                return GetCurrentOrder();
+                CreateOrder(new OrderViewModel { User = new UserViewModel { Id = userId } });
+                return GetCurrentOrder(userId);
             }
 
             return _mapper.OrderToViewModel(order);
