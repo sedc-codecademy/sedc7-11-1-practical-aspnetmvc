@@ -1,4 +1,5 @@
-﻿using Lamazon.DataAccess.Interfaces;
+﻿using AutoMapper;
+using Lamazon.DataAccess.Interfaces;
 using Lamazon.Domain.Models;
 using Lamazon.Services.Helpers;
 using Lamazon.Services.Interfaces;
@@ -15,9 +16,9 @@ namespace Lamazon.Services
         private readonly IUserRepository<User> _userRepo;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly ManualMapper _mapper;
+        private readonly IMapper _mapper;
 
-        public UserService(IUserRepository<User> userRepo, UserManager<User> userManager, SignInManager<User> signInManager, ManualMapper mapper)
+        public UserService(IUserRepository<User> userRepo, UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper)
         {
             _userRepo = userRepo;
             _userManager = userManager;
@@ -32,7 +33,7 @@ namespace Lamazon.Services
             if (registerModel.Password != registerModel.ConfirmPassword)
                 throw new Exception("Passwords does not match!");
 
-            User user = _mapper.UserToDomainModel(registerModel);
+            User user = _mapper.Map<User>(registerModel);
             var result = _userManager.CreateAsync(user, registerModel.Password).Result;
             if (result.Succeeded)
             {
@@ -74,7 +75,7 @@ namespace Lamazon.Services
             if (user == null)
                 throw new Exception("User does not exists!");
 
-            return _mapper.UserToViewModel(user);
+            return _mapper.Map<UserViewModel>(user);
         }
     }
 }
