@@ -19,7 +19,7 @@ namespace Lamazon.Domain.Models
         [Required]
         public bool Paid { get; set; }
         [Required]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public virtual User User { get; set; }
         public virtual IEnumerable<OrderProduct> OrdersProducts { get; set; }
     }
