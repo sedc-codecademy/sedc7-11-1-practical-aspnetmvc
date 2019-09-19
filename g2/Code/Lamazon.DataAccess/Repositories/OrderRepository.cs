@@ -38,17 +38,25 @@ namespace Lamazon.DataAccess.Repositories
 
         public int Update(Order entity)
         {
-            _db.Orders.Update(entity);
+            Order order = _db.Orders
+                .FirstOrDefault(o => o.Id == entity.Id);
+            if (order == null)
+                return -1;
+
+            order.DateCreated = entity.DateCreated;
+            order.Status = entity.Status;
+
             return _db.SaveChanges();
         }
 
         public int Delete(int id)
         {
-            var entity = _db.Orders.FirstOrDefault(o => o.Id == id); ;
-            if (entity == null)
+            Order order = _db.Orders
+                .FirstOrDefault(o => o.Id == id); ;
+            if (order == null)
                 return -1;
 
-            _db.Orders.Remove(entity);
+            _db.Orders.Remove(order);
             return _db.SaveChanges();
         }
     }

@@ -18,7 +18,11 @@ namespace Lamazon.Services
         private readonly SignInManager<User> _signInManager;
         private readonly IMapper _mapper;
 
-        public UserService(IUserRepository<User> userRepo, UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper)
+        public UserService(
+            IUserRepository<User> userRepo, 
+            UserManager<User> userManager, 
+            SignInManager<User> signInManager, 
+            IMapper mapper)
         {
             _userRepo = userRepo;
             _userManager = userManager;
@@ -34,10 +38,15 @@ namespace Lamazon.Services
                 throw new Exception("Passwords does not match!");
 
             User user = _mapper.Map<User>(registerModel);
-            var result = _userManager.CreateAsync(user, registerModel.Password).Result;
-            if (result.Succeeded)
+
+            IdentityResult identityRes = _userManager
+                .CreateAsync(user, registerModel.Password).Result;
+
+            if (identityRes.Succeeded)
             {
-                var currentUser = _userManager.FindByNameAsync(user.UserName).Result;
+                User currentUser = _userManager
+                    .FindByNameAsync(user.UserName).Result;
+
                 _userManager.AddToRoleAsync(currentUser, "customer");
             }
 
@@ -52,13 +61,13 @@ namespace Lamazon.Services
 
         public void Login(LoginViewModel loginModel)
         {
-            var result = _signInManager.PasswordSignInAsync(
+            SignInResult signInRes = _signInManager.PasswordSignInAsync(
                 loginModel.Username, 
                 loginModel.Password, 
                 false, 
                 false).Result;
 
-            if (result.IsNotAllowed)
+            if (signInRes.IsNotAllowed)
             {
                 throw new Exception("Username or password is wrong!");
             }
@@ -73,7 +82,7 @@ namespace Lamazon.Services
         {
             User user = _userRepo.GetByUsername(username);
             if (user == null)
-                throw new Exception("User does not exists!");
+                throw new Exception("User does not exist");
 
             return _mapper.Map<UserViewModel>(user);
         }

@@ -18,7 +18,9 @@ namespace Lamazon.Services
         private readonly IRepository<Product> _productRepo;
         private readonly IMapper _mapper;
 
-        public ProductService(IRepository<Product> productRepo, IMapper mapper)
+        public ProductService(
+            IRepository<Product> productRepo, 
+            IMapper mapper)
         {
             _productRepo = productRepo;
             _mapper = mapper;
@@ -26,23 +28,6 @@ namespace Lamazon.Services
 
         public IEnumerable<ProductViewModel> GetAllProducts()
         {
-            //var allProducts = _productRepo.GetAll();
-            //var allViewProducts = new List<ProductViewModel>();
-
-            //foreach (Product product in allProducts)
-            //{
-            //    allViewProducts.Add(
-            //        new ProductViewModel
-            //        {
-            //            Id = product.Id,
-            //            Name = product.Name,
-            //            Description = product.Description,
-            //            Category = (CategoryTypeViewModel)product.Category,
-            //            Price = product.Price,
-            //        }
-            //    );
-            //}
-
             return _productRepo.GetAll()
                 .Select(p => _mapper.Map<ProductViewModel>(p))
                 .ToList();
@@ -52,7 +37,7 @@ namespace Lamazon.Services
         {
             Product product = _productRepo.GetById(id);
             if (product == null)
-                throw new Exception("Product does not exist");
+                throw new Exception("No such product");
 
             return _mapper.Map<ProductViewModel>(product);
         }

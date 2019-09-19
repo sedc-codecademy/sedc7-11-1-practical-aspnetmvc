@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -40,9 +41,24 @@ namespace Lamazon.WebApp
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            //services.AddTransient<ManualMapper>();
+            services.AddAutoMapper(opts =>
+            {
+                opts.AddProfile<MapperProfile>();
+            });
+
             services.AddDbContext<LamazonDbContext>(ob => ob.UseSqlServer(
                 Configuration.GetConnectionString("LamazonDbConnection")
             ));
+
+            services.AddIdentity<User, IdentityRole>(opts =>
+            {
+                opts.User.RequireUniqueEmail = true;
+                opts.Password.RequireNonAlphanumeric = true;
+            })
+            .AddRoleManager<RoleManager<IdentityRole>>()
+            .AddEntityFrameworkStores<LamazonDbContext>()
+            .AddDefaultTokenProviders();
 
             services.AddTransient<IUserRepository<User>, UserRespository>();
             services.AddTransient<IRepository<Product>, ProductRepository>();
@@ -52,12 +68,6 @@ namespace Lamazon.WebApp
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IOrderService, OrderService>();
-
-            //services.AddTransient<ManualMapper>();
-            services.AddAutoMapper(opts =>
-            {
-                opts.AddProfile<MapperProfile>();
-            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

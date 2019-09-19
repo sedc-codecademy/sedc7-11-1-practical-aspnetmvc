@@ -178,7 +178,6 @@ namespace Lamazon.DataAccess.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     Status = table.Column<int>(nullable: false),
-                    Paid = table.Column<bool>(nullable: false),
                     UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
@@ -221,9 +220,9 @@ namespace Lamazon.DataAccess.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "235465a0-5652-4d43-b3f2-230e61bc925c", "24a7a5b0-4252-4e95-bc85-9ffeceaf3560", "admin", "ADMIN" },
-                    { "6e51d26a-a9ed-4fc9-9777-bf8bbcd270f2", "15b91de1-9a81-4ef8-9567-41584ca8ec6b", "supplier", "SUPPLIER" },
-                    { "f5957221-3565-425c-b58a-e0a34271c485", "1ee53e4c-dda9-44d9-827e-0656c32d164f", "customer", "CUSTOMER" }
+                    { "0c894a91-336b-4fde-a194-d2922e3354a1", "c1ab992f-fcf3-4995-8a3b-d7e3d18205d1", "admin", "ADMIN" },
+                    { "647f0145-29b2-464b-81b2-fccb11b1f560", "e123e7c5-a63c-4d65-89f6-80021948e0c3", "supplier", "SUPPLIER" },
+                    { "888a4967-0c55-4946-a65f-64460c1595c9", "f590d4dd-1735-4bc2-9aa6-b83913a0a135", "customer", "CUSTOMER" }
                 });
 
             migrationBuilder.InsertData(
@@ -231,10 +230,10 @@ namespace Lamazon.DataAccess.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "9da9239d-814f-4199-b958-69838f4e282f", 0, "76024cee-df7b-4d90-ae7b-403c3164bed4", "sa@sa.com", true, "System Admin", false, null, "SA@SA.COM", "SA", "AQAAAAEAACcQAAAAEO6lLASScWhhdsVAkOB+p0Wm7muJUBkFOod8WaFwW7dQ75XXJ8RmI+eyQZGP5lbY+w==", null, false, "", false, "sa" },
-                    { "19d32d20-e29a-4628-81fd-f2445c1ddb1d", 0, "8584acf2-3091-41c3-9ce0-2087177661c5", "stojanche.m@mail.com", true, "Stojanche Mitrevski", false, null, "STOJANCHE.M@MAIL.COM", "STOJANCHE.M", "AQAAAAEAACcQAAAAEF7hQk/4dUNS0KTAJ011Jx512xK5tXCfMnKoShjgb2dTcCVkiZaXBDZZraXd6K6vKQ==", null, false, "", false, "stojanche.m" },
-                    { "ebbd1081-367e-4c29-bea1-5191777b877d", 0, "92d7ebd3-77b9-4afb-95ad-c4becb90768e", "dejan.blazheski@mail.com", true, "Dejan Blazheski", false, null, "DEJAN.BLAZHESKI@MAIL.COM", "DEJAN.BLAZHESKI", "AQAAAAEAACcQAAAAENd3aws0MC1vFnNh3Sbh1bfpyDTC29H801Sc7A+r6xGATri/EeTEPtzzIeWaLQD0PQ==", null, false, "", false, "dejan.blazheski" },
-                    { "880e7a14-7470-4da7-a2c1-4a89339216ea", 0, "24fd7765-f7ec-4643-8d2c-145943565d5a", "dejan.jovanov@mail.com", true, "Dejan Jovanov", false, null, "DEJAN.JOVANOV@MAIL.COM", "DEJAN.JOVANOV", "AQAAAAEAACcQAAAAENymf3D5OBIE6xqijJqpLfebHhHAWjowZeUelgo3kodHdVFTZpf87BawLos2Ec+b4g==", null, false, "", false, "dejan.jovanov" }
+                    { "25791050-fbac-46d3-9baf-6dc3c9553bb4", 0, "bf0797ed-0c68-45c0-87cb-e008b8550b9c", "sa@sa.com", true, "System Admin", false, null, "SA@SA.COM", "SA", "AQAAAAEAACcQAAAAEJQLqQwKyXql8YA/PUdkRvEu16VUKKHfmFsrK0xy17c/d9n/mZm4kq4/vp3Refb1+g==", null, false, "", false, "sa" },
+                    { "270812e9-66c7-4088-95ea-fd141672345d", 0, "1a0cd86f-7fba-445c-8654-40c7fcd6d77d", "stojanche.m@mail.com", true, "Stojanche Mitrevski", false, null, "STOJANCHE.M@MAIL.COM", "STOJANCHE.M", "AQAAAAEAACcQAAAAEL9w5ZepBo2e/leKX7YY9lXsXd5C5i75ph58uKyCu1CAhE8eciIm3tr0GEzKZHHgnA==", null, false, "", false, "stojanche.m" },
+                    { "ff65781b-bf1e-454c-8119-d692d77b3622", 0, "e82cc6cb-18b4-4942-856e-90da8cd610e4", "dejan.blazheski@mail.com", true, "Dejan Blazheski", false, null, "DEJAN.BLAZHESKI@MAIL.COM", "DEJAN.BLAZHESKI", "AQAAAAEAACcQAAAAEOLNs8AdmVuhiOM9VqvuHfV6Yoq5YXF4yg+Gh+h95+VKNGzQl0ypVUF+R+INh9wEXw==", null, false, "", false, "dejan.blazheski" },
+                    { "7aec6257-10e0-47fa-96b7-55d74116917f", 0, "7821b94d-b2ed-47ae-b9ae-9504bcc71679", "dejan.jovanov@mail.com", true, "Dejan Jovanov", false, null, "DEJAN.JOVANOV@MAIL.COM", "DEJAN.JOVANOV", "AQAAAAEAACcQAAAAEAvwYNKf6VF34uQG8i5iF4wYyGStUY4jMZAnhDtXSYdIi6OCVgx1ObS9JUrGoSSPDQ==", null, false, "", false, "dejan.jovanov" }
                 });
 
             migrationBuilder.InsertData(
@@ -255,20 +254,20 @@ namespace Lamazon.DataAccess.Migrations
                 columns: new[] { "UserId", "RoleId" },
                 values: new object[,]
                 {
-                    { "9da9239d-814f-4199-b958-69838f4e282f", "235465a0-5652-4d43-b3f2-230e61bc925c" },
-                    { "19d32d20-e29a-4628-81fd-f2445c1ddb1d", "6e51d26a-a9ed-4fc9-9777-bf8bbcd270f2" },
-                    { "ebbd1081-367e-4c29-bea1-5191777b877d", "f5957221-3565-425c-b58a-e0a34271c485" },
-                    { "880e7a14-7470-4da7-a2c1-4a89339216ea", "f5957221-3565-425c-b58a-e0a34271c485" }
+                    { "25791050-fbac-46d3-9baf-6dc3c9553bb4", "0c894a91-336b-4fde-a194-d2922e3354a1" },
+                    { "270812e9-66c7-4088-95ea-fd141672345d", "647f0145-29b2-464b-81b2-fccb11b1f560" },
+                    { "ff65781b-bf1e-454c-8119-d692d77b3622", "888a4967-0c55-4946-a65f-64460c1595c9" },
+                    { "7aec6257-10e0-47fa-96b7-55d74116917f", "888a4967-0c55-4946-a65f-64460c1595c9" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Orders",
-                columns: new[] { "Id", "DateCreated", "Paid", "Status", "UserId" },
+                columns: new[] { "Id", "DateCreated", "Status", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2019, 9, 18, 19, 9, 39, 489, DateTimeKind.Utc), false, 0, "ebbd1081-367e-4c29-bea1-5191777b877d" },
-                    { 2, new DateTime(2019, 9, 18, 19, 9, 39, 489, DateTimeKind.Utc), false, 2, "ebbd1081-367e-4c29-bea1-5191777b877d" },
-                    { 3, new DateTime(2019, 9, 18, 19, 9, 39, 489, DateTimeKind.Utc), false, 1, "880e7a14-7470-4da7-a2c1-4a89339216ea" }
+                    { 1, new DateTime(2019, 9, 19, 16, 47, 51, 11, DateTimeKind.Utc), 0, "ff65781b-bf1e-454c-8119-d692d77b3622" },
+                    { 2, new DateTime(2019, 9, 19, 16, 47, 51, 11, DateTimeKind.Utc), 2, "ff65781b-bf1e-454c-8119-d692d77b3622" },
+                    { 3, new DateTime(2019, 9, 19, 16, 47, 51, 11, DateTimeKind.Utc), 1, "7aec6257-10e0-47fa-96b7-55d74116917f" }
                 });
 
             migrationBuilder.InsertData(
