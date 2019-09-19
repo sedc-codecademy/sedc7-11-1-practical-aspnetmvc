@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -37,11 +38,13 @@ namespace SEDC.Lazamazon.Web
             var appConfig = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appConfig);
 
+            
             //Using AppSettings section
             var appSettings = appConfig.Get<AppSettings>();
 
             DIModule.RegisterModule(services, appSettings.LamazonDbConnectionString);
 
+            services.AddAutoMapper();
 
 
 
