@@ -28,9 +28,12 @@ namespace Lamazon.Services
 
         public IEnumerable<ProductViewModel> GetAllProducts()
         {
-            return _productRepo.GetAll()
-                .Select(p => _mapper.Map<ProductViewModel>(p))
-                .ToList();
+            //return _productRepo.GetAll()
+            //    .Select(p => _mapper.Map<ProductViewModel>(p))
+            //    .ToList();
+            return _mapper.Map<IEnumerable<ProductViewModel>>(
+                _productRepo.GetAll()
+            );
         }
 
         public ProductViewModel GetProductById(int id)

@@ -49,6 +49,8 @@ namespace Lamazon.Services
 
                 _userManager.AddToRoleAsync(currentUser, "customer");
             }
+            else
+                throw new Exception(identityRes.Errors.ToString());
 
             Login(
                 new LoginViewModel { Username = registerModel.Username, Password = registerModel.Password}
