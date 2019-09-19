@@ -19,7 +19,10 @@ namespace Lamazon.Services
         private readonly IRepository<OrderProduct> _orderProductRepo;
         private readonly IMapper _mapper;
 
-        public OrderService(IRepository<Order> orderRepo, IRepository<OrderProduct> orderProductRepo, IMapper mapper)
+        public OrderService(
+            IRepository<Order> orderRepo, 
+            IRepository<OrderProduct> orderProductRepo, 
+            IMapper mapper)
         {
             _orderRepo = orderRepo;
             _orderProductRepo = orderProductRepo;
@@ -45,7 +48,7 @@ namespace Lamazon.Services
         {
             Order order = _orderRepo.GetById(id);
             if (order == null)
-                throw new Exception("Order not found");
+                throw new Exception("Order does not exist");
 
             return _mapper.Map<OrderViewModel>(order);
         }

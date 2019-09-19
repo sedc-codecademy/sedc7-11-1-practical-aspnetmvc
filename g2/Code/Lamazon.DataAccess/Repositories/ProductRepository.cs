@@ -32,17 +32,27 @@ namespace Lamazon.DataAccess.Repositories
 
         public int Update(Product entity)
         {
-            _db.Products.Update(entity);
+            Product product = _db.Products
+                .FirstOrDefault(p => p.Id == entity.Id);
+            if (product == null)
+                return -1;
+
+            product.Name = entity.Name;
+            product.Description = entity.Description;
+            product.Category = entity.Category;
+            product.Price = entity.Price;
+
             return _db.SaveChanges();
         }
 
         public int Delete(int id)
         {
-            var entity = _db.Products.FirstOrDefault(p => p.Id == id);
-            if (entity == null)
+            Product product = _db.Products
+                .FirstOrDefault(p => p.Id == id);
+            if (product == null)
                 return -1;
 
-            _db.Products.Remove(entity);
+            _db.Products.Remove(product);
             return _db.SaveChanges();
         }
     }

@@ -41,33 +41,19 @@ namespace Lamazon.DataAccess
 
             //Data Seed Start
 
+            //Seeding Roles
             //Generate Ids for each Role
             string adminRoleId = Guid.NewGuid().ToString();
             string supplierRoleId = Guid.NewGuid().ToString();
             string customerRoleId = Guid.NewGuid().ToString();
 
-            //Seeding Roles
             modelBuilder.Entity<IdentityRole>().HasData(
-                new IdentityRole
-                {
-                    Id = adminRoleId,
-                    Name = "admin",
-                    NormalizedName = "ADMIN"
-                },
-                new IdentityRole
-                {
-                    Id = supplierRoleId,
-                    Name = "supplier",
-                    NormalizedName = "SUPPLIER"
-                },
-                new IdentityRole
-                {
-                    Id = customerRoleId,
-                    Name = "customer",
-                    NormalizedName = "CUSTOMER"
-                }
+                new IdentityRole { Id = adminRoleId, Name = "admin", NormalizedName = "ADMIN" },
+                new IdentityRole { Id = supplierRoleId, Name = "supplier", NormalizedName = "SUPPLIER" },
+                new IdentityRole { Id = customerRoleId, Name = "customer", NormalizedName = "CUSTOMER" }
             );
 
+            //Seeding Users
             //Generate Ids for each User
             string saUserId = Guid.NewGuid().ToString();
             string stojancheUserId = Guid.NewGuid().ToString();
@@ -76,11 +62,8 @@ namespace Lamazon.DataAccess
             //Generate a hasher, we need this hasher to hash our password in the database
             var hasher = new PasswordHasher<User>();
 
-            //Seeding Users
             modelBuilder.Entity<User>().HasData(
-                new User
-                {
-                    Id = saUserId,
+                new User { Id = saUserId,
                     FullName = "System Admin",
                     UserName = "sa",
                     NormalizedUserName = "SA",
@@ -130,152 +113,44 @@ namespace Lamazon.DataAccess
 
             //Seeding UserRoles, assigning a Role for each User
             modelBuilder.Entity<IdentityUserRole<string>>().HasData(
-                new IdentityUserRole<string>
-                {
-                    RoleId = adminRoleId,
-                    UserId = saUserId
-                },
-                new IdentityUserRole<string>
-                {
-                    RoleId = supplierRoleId,
-                    UserId = stojancheUserId
-                },
-                new IdentityUserRole<string>
-                {
-                    RoleId = customerRoleId,
-                    UserId = dejanBlazheskiUserId
-                },
-                new IdentityUserRole<string>
-                {
-                    RoleId = customerRoleId,
-                    UserId = dejanJovanovUserId
-                }
+                new IdentityUserRole<string> { RoleId = adminRoleId, UserId = saUserId },
+                new IdentityUserRole<string> { RoleId = supplierRoleId, UserId = stojancheUserId },
+                new IdentityUserRole<string> { RoleId = customerRoleId, UserId = dejanBlazheskiUserId },
+                new IdentityUserRole<string> { RoleId = customerRoleId, UserId = dejanJovanovUserId }
             );
 
             //Seeding Orders
             modelBuilder.Entity<Order>().HasData(
-                new Order
-                {
-                    Id = 1,
-                    DateCreated = DateTime.UtcNow,
-                    Status = StatusType.Init,
-                    UserId = dejanBlazheskiUserId
-                },
-                new Order
-                {
-                    Id = 2,
-                    DateCreated = DateTime.UtcNow,
-                    Status = StatusType.Confirmed,
-                    UserId = dejanBlazheskiUserId
-                },
-                new Order
-                {
-                    Id = 3,
-                    DateCreated = DateTime.UtcNow,
-                    Status = StatusType.Processing,
-                    UserId = dejanJovanovUserId
-                }
+                new Order { Id = 1, DateCreated = DateTime.UtcNow, Status = StatusType.Init, UserId = dejanBlazheskiUserId },
+                new Order { Id = 2, DateCreated = DateTime.UtcNow, Status = StatusType.Confirmed, UserId = dejanBlazheskiUserId },
+                new Order { Id = 3, DateCreated = DateTime.UtcNow, Status = StatusType.Processing, UserId = dejanJovanovUserId }
             );
 
             //Seeding Products
             modelBuilder.Entity<Product>().HasData(
-                new Product
-                {
-                    Id = 1,
-                    Name = "Epilator",
-                    Description = "A small tool for removing unwanted hair in unwanted places",
-                    Category = CategoryType.Electronics,
-                    Price = 30
-                },
-                new Product
-                {
-                    Id = 2,
-                    Name = "Headphones",
-                    Description = "For IPhone X",
-                    Category = CategoryType.Electronics,
-                    Price = 5
-                },
-                new Product
-                {
-                    Id = 3,
-                    Name = "Exploding Kittens",
-                    Description = "A board game",
-                    Category = CategoryType.Other,
-                    Price = 20
-                },
-                new Product
-                {
-                    Id = 4,
-                    Name = "Martini",
-                    Description = "A cool drink delivered to your door",
-                    Category = CategoryType.Drinks,
-                    Price = 10
-                },
-                new Product
-                {
-                    Id = 5,
-                    Name = "Hamburger",
-                    Description = "Meat, Salads, Fries",
-                    Category = CategoryType.Food,
-                    Price = 5
-                },
-                new Product
-                {
-                    Id = 6,
-                    Name = "Enterprise Integration Patterns",
-                    Description = "by Gregor Hohpe and Bobby Woolf",
-                    Category = CategoryType.Books,
-                    Price = 50
-                }
+                new Product { Id = 1, Name = "Epilator", Description = "A small tool for removing unwanted hair in unwanted places", Category = CategoryType.Electronics, Price = 30 },
+                new Product { Id = 2, Name = "Headphones", Description = "For IPhone X", Category = CategoryType.Electronics, Price = 5 },
+                new Product { Id = 3, Name = "Exploding Kittens", Description = "A board game", Category = CategoryType.Other, Price = 20 },
+                new Product { Id = 4, Name = "Martini", Description = "A cool drink delivered to your door", Category = CategoryType.Drinks, Price = 10 },
+                new Product { Id = 5, Name = "Hamburger", Description = "Meat, Salads, Fries", Category = CategoryType.Food, Price = 5 },
+                new Product { Id = 6, Name = "Enterprise Integration Patterns", Description = "by Gregor Hohpe and Bobby Woolf", Category = CategoryType.Books, Price = 50 }
             );
 
             //Seeding OrderProduct
             modelBuilder.Entity<OrderProduct>().HasData(
                 //Order 1
-                new OrderProduct
-                {
-                    OrderId = 1,
-                    ProductId = 1
-                },
-                new OrderProduct
-                {
-                    OrderId = 1,
-                    ProductId = 3
-                },
-                new OrderProduct
-                {
-                    OrderId = 1,
-                    ProductId = 5
-                },
+                new OrderProduct { OrderId = 1, ProductId = 1 },
+                new OrderProduct { OrderId = 1, ProductId = 3 },
+                new OrderProduct { OrderId = 1, ProductId = 5 },
 
                 //Order 2
-                new OrderProduct
-                {
-                    OrderId = 2,
-                    ProductId = 1
-                },
-                new OrderProduct
-                {
-                    OrderId = 2,
-                    ProductId = 2
-                },
+                new OrderProduct { OrderId = 2, ProductId = 1 },
+                new OrderProduct { OrderId = 2, ProductId = 2 },
 
                 //Order 3
-                new OrderProduct
-                {
-                    OrderId = 3,
-                    ProductId = 4
-                },
-                new OrderProduct
-                {
-                    OrderId = 3,
-                    ProductId = 5
-                },
-                new OrderProduct
-                {
-                    OrderId = 3,
-                    ProductId = 6
-                }
+                new OrderProduct { OrderId = 3, ProductId = 4 },
+                new OrderProduct { OrderId = 3, ProductId = 5 },
+                new OrderProduct { OrderId = 3, ProductId = 6 }
             );
         }
     }

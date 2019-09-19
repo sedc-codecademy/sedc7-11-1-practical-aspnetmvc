@@ -37,17 +37,26 @@ namespace Lamazon.DataAccess.Repositories
 
         public int Update(User entity)
         {
-            _db.Users.Update(entity);
+            User user = _db.Users
+                .FirstOrDefault(u => u.Id == entity.Id);
+            if (user == null)
+                return -1;
+
+            user.NormalizedEmail = entity.Email.ToUpper();
+            user.Email = entity.Email;
+            user.NormalizedUserName = entity.UserName.ToUpper();
+            user.UserName = entity.UserName;
+
             return _db.SaveChanges();
         }
 
         public int Delete(string id)
         {
-            var entity = _db.Users.FirstOrDefault(u => u.Id == id);
-            if (entity == null)
+            User user = _db.Users.FirstOrDefault(u => u.Id == id);
+            if (user == null)
                 return -1;
 
-            _db.Users.Remove(entity);
+            _db.Users.Remove(user);
             return _db.SaveChanges();
         }
     }
