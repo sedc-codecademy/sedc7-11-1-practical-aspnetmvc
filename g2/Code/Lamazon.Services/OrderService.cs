@@ -1,4 +1,5 @@
-﻿using Lamazon.DataAccess.Interfaces;
+﻿using AutoMapper;
+using Lamazon.DataAccess.Interfaces;
 using Lamazon.Domain.Enums;
 using Lamazon.Domain.Models;
 using Lamazon.Services.Helpers;
@@ -16,9 +17,9 @@ namespace Lamazon.Services
     {
         private readonly IRepository<Order> _orderRepo;
         private readonly IRepository<OrderProduct> _orderProductRepo;
-        private readonly ManualMapper _mapper;
+        private readonly IMapper _mapper;
 
-        public OrderService(IRepository<Order> orderRepo, IRepository<OrderProduct> orderProductRepo, ManualMapper mapper)
+        public OrderService(IRepository<Order> orderRepo, IRepository<OrderProduct> orderProductRepo, IMapper mapper)
         {
             _orderRepo = orderRepo;
             _orderProductRepo = orderProductRepo;
@@ -28,7 +29,7 @@ namespace Lamazon.Services
         public IEnumerable<OrderViewModel> GetAllOrders()
         {
             return _orderRepo.GetAll()
-                .Select(o => _mapper.OrderToViewModel(o))
+                .Select(o => _mapper.Map<OrderViewModel>(o))
                 .ToList();
         }
 
@@ -36,7 +37,7 @@ namespace Lamazon.Services
         {
             return _orderRepo.GetAll()
                 .Where(o => o.UserId == userId)
-                .Select(o => _mapper.OrderToViewModel(o))
+                .Select(o => _mapper.Map<OrderViewModel>(o))
                 .ToList();
         }
 
@@ -46,7 +47,7 @@ namespace Lamazon.Services
             if (order == null)
                 throw new Exception("Order not found");
 
-            return _mapper.OrderToViewModel(order);
+            return _mapper.Map<OrderViewModel>(order);
         }
 
         public OrderViewModel GetCurrentOrder(string userId)
@@ -61,13 +62,13 @@ namespace Lamazon.Services
                 return GetCurrentOrder(userId);
             }
 
-            return _mapper.OrderToViewModel(order);
+            return _mapper.Map<OrderViewModel>(order);
         }
 
         public void CreateOrder(OrderViewModel order)
         {
             _orderRepo.Insert(
-                _mapper.OrderToDomainModel(order)
+                _mapper.Map<Order>(order)
             );
         }
 
@@ -85,7 +86,11 @@ namespace Lamazon.Services
         public void AddProduct(int orderId, int productId)
         {
             _orderProductRepo.Insert(
-                _mapper.OrderProductToDomain(orderId, productId)
+                new OrderProduct
+                {
+                    OrderId = orderId,
+                    ProductId = productId
+                }
             );
         }
 

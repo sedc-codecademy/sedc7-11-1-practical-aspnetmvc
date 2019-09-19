@@ -1,4 +1,5 @@
-﻿using Lamazon.DataAccess.Interfaces;
+﻿using AutoMapper;
+using Lamazon.DataAccess.Interfaces;
 using Lamazon.Domain.Enums;
 using Lamazon.Domain.Models;
 using Lamazon.Services.Helpers;
@@ -15,9 +16,9 @@ namespace Lamazon.Services
     public class ProductService : IProductService
     {
         private readonly IRepository<Product> _productRepo;
-        private readonly ManualMapper _mapper;
+        private readonly IMapper _mapper;
 
-        public ProductService(IRepository<Product> productRepo, ManualMapper mapper)
+        public ProductService(IRepository<Product> productRepo, IMapper mapper)
         {
             _productRepo = productRepo;
             _mapper = mapper;
@@ -43,7 +44,7 @@ namespace Lamazon.Services
             //}
 
             return _productRepo.GetAll()
-                .Select(p => _mapper.ProductToViewModel(p))
+                .Select(p => _mapper.Map<ProductViewModel>(p))
                 .ToList();
         }
 
@@ -53,20 +54,20 @@ namespace Lamazon.Services
             if (product == null)
                 throw new Exception("Product does not exist");
 
-            return _mapper.ProductToViewModel(product);
+            return _mapper.Map<ProductViewModel>(product);
         }
 
         public void CreateProduct(ProductViewModel product)
         {
             _productRepo.Insert(
-                _mapper.ProductToDomainModel(product)
+                _mapper.Map<Product>(product)
             );
         }
 
         public void UpdateProduct(ProductViewModel product)
         {
             _productRepo.Update(
-                _mapper.ProductToDomainModel(product)
+                _mapper.Map<Product>(product)
             );
         }
 

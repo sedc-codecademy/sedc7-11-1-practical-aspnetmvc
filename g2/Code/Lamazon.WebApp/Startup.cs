@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Lamazon.DataAccess;
 using Lamazon.DataAccess.Interfaces;
 using Lamazon.DataAccess.Repositories;
@@ -52,7 +53,11 @@ namespace Lamazon.WebApp
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IOrderService, OrderService>();
 
-            services.AddTransient<ManualMapper>();
+            //services.AddTransient<ManualMapper>();
+            services.AddAutoMapper(opts =>
+            {
+                opts.AddProfile<MapperProfile>();
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
