@@ -9,7 +9,7 @@ A company is contracting you to make an Amazon like application. The application
 * Supplier - The application owner that can approve orders
 * Product - Premium item that can be ordered
 * Order - An order that contains products for a user
-* Invoice - Description of the order and the payment system as well as proof that an order happened
+* Invoice - Description of the order(Address) and the payment system as well as proof that an order happened
 
 ## Details 📌
 * The application should have an interface where the users can login, see products and buy them as well as make the order
