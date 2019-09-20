@@ -31,17 +31,24 @@ namespace Lamazon.Services
 
         public IEnumerable<OrderViewModel> GetAllOrders()
         {
-            return _orderRepo.GetAll()
-                .Select(o => _mapper.Map<OrderViewModel>(o))
-                .ToList();
+            //return _orderRepo.GetAll()
+            //    .Select(o => _mapper.Map<OrderViewModel>(o))
+            //    .ToList();
+            return _mapper.Map<IEnumerable<OrderViewModel>>(
+                _orderRepo.GetAll()
+            );
         }
 
         public IEnumerable<OrderViewModel> GetUserOrders(string userId)
         {
-            return _orderRepo.GetAll()
+            //return _orderRepo.GetAll()
+            //    .Where(o => o.UserId == userId)
+            //    .Select(o => _mapper.Map<OrderViewModel>(o))
+            //    .ToList();
+            return _mapper.Map<IEnumerable<OrderViewModel>>(
+                _orderRepo.GetAll()
                 .Where(o => o.UserId == userId)
-                .Select(o => _mapper.Map<OrderViewModel>(o))
-                .ToList();
+            );
         }
 
         public OrderViewModel GetOrderById(int id)
