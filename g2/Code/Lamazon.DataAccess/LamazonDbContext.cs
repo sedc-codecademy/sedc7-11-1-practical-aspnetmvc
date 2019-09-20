@@ -16,6 +16,7 @@ namespace Lamazon.DataAccess
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<OrderProduct> OrdersProducts { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -38,6 +39,10 @@ namespace Lamazon.DataAccess
                 .HasMany(p => p.OrdersProducts)
                 .WithOne(op => op.Product)
                 .HasForeignKey(op => op.ProductId);
+
+            modelBuilder.Entity<Invoice>()
+                .HasOne(i => i.Order)
+                .WithOne();
 
             //Data Seed Start
 

@@ -64,9 +64,7 @@ namespace Lamazon.Services
         {
             Order order = _orderRepo.GetAll()
                 .LastOrDefault(o => o.UserId == userId);
-            if (order == null)
-                throw new Exception("No orders. Please create at least one order");
-            if (order.Status != StatusType.Init)
+            if (order.Status != StatusType.Init || order == null)
             {
                 CreateOrder(new OrderViewModel { User = new UserViewModel { Id = userId } });
                 return GetCurrentOrder(userId);

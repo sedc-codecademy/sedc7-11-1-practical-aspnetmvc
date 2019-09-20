@@ -36,6 +36,8 @@ namespace Lamazon.Services.Helpers
                 .ForMember(pv => pv.Description, src => src.MapFrom(op => op.Product.Description))
                 .ForMember(pv => pv.Category, src => src.MapFrom(op => op.Product.Category))
                 .ForMember(pv => pv.Price, src => src.MapFrom(op => op.Product.Price));
+
+            CreateMap<Invoice, InvoiceViewModel>();
         }
     }
 }
