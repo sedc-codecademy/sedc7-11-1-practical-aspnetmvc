@@ -13,5 +13,7 @@ namespace SEDC.Football.Domain.Models
         public int Age { get; set; }
 
         public int TeamId { get; set; }
+
+        public virtual Team Team { get; set; }
     }
 }
