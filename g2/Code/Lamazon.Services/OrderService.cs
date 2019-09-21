@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Lamazon.DataAccess.Interfaces;
+using Lamazon.DataAccess.Repositories;
 using Lamazon.Domain.Enums;
 using Lamazon.Domain.Models;
 using Lamazon.Services.Helpers;
@@ -17,15 +18,19 @@ namespace Lamazon.Services
     {
         private readonly IRepository<Order> _orderRepo;
         private readonly IRepository<OrderProduct> _orderProductRepo;
+        private readonly IUserRepository<User> _userRepo;
+
         private readonly IMapper _mapper;
 
         public OrderService(
             IRepository<Order> orderRepo, 
-            IRepository<OrderProduct> orderProductRepo, 
+            IRepository<OrderProduct> orderProductRepo,
+            IUserRepository<User> userRepo,
             IMapper mapper)
         {
             _orderRepo = orderRepo;
             _orderProductRepo = orderProductRepo;
+            _userRepo = userRepo;
             _mapper = mapper;
         }
 
@@ -63,7 +68,8 @@ namespace Lamazon.Services
         public OrderViewModel GetCurrentOrder(string userId)
         {
             Order order = _orderRepo.GetAll()
-                .LastOrDefault(o => o.UserId == userId);
+                                    .LastOrDefault(o => o.UserId == userId);
+
             if (order.Status != StatusType.Init || order == null)
             {
                 CreateOrder(new OrderViewModel { User = new UserViewModel { Id = userId } });
@@ -80,12 +86,18 @@ namespace Lamazon.Services
             );
         }
 
-        public void ChangeStatus(int orderId, StatusTypeViewModel status)
+        public void ChangeStatus(int orderId, string userId, StatusTypeViewModel status)
         {
+            Order order = _orderRepo.GetById(orderId);
+            User user = _userRepo.GetById(userId);
+
+            order.Status = (StatusType)status;
+
             _orderRepo.Update(
                 new Order
                 {
-                    Id = orderId,
+                    //Id = orderId,
+                    User = user,
                     Status = (StatusType)status
                 }
             );

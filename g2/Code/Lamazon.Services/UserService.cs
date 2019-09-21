@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Lamazon.DataAccess.Interfaces;
+using Lamazon.Domain.Enums;
 using Lamazon.Domain.Models;
 using Lamazon.Services.Helpers;
 using Lamazon.Services.Interfaces;
@@ -38,6 +39,7 @@ namespace Lamazon.Services
                 throw new Exception("Passwords does not match!");
 
             User user = _mapper.Map<User>(registerModel);
+            user.Orders = new List<Order>() { new Order() { Status = StatusType.Init } };
 
             IdentityResult identityRes = _userManager
                 .CreateAsync(user, registerModel.Password).Result;

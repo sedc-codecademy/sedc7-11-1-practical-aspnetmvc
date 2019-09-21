@@ -48,6 +48,15 @@ namespace Lamazon.WebApp
                 Configuration.GetConnectionString("LamazonDbConnection")
             );
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                options.LoginPath = "/Users/LogIn";
+                options.AccessDeniedPath = "/Users/LogIn";
+                options.SlidingExpiration = true;
+            });
+
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IOrderService, OrderService>();

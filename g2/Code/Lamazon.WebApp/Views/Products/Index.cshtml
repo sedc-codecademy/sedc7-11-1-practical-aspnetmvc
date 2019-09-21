@@ -1,8 +1,41 @@
 ﻿@model IEnumerable<ProductViewModel>
 
-<h2>Products</h2>
 
-@foreach (var item in Model)
-{
-    <span>@item.Name</span> <br />
-}
+
+
+<h2>Products</h2>
+<div class="products">
+    @foreach (var product in Model)
+    {
+        <div class="thumbnail">
+            <img class="product-image" src="~/images/banner@(product.Id).svg"/>
+            <div class="caption">
+                <input asp-for="@product.Id" type="hidden" />
+                @*@Html.HiddenFor(x => product.Id);*@
+                <h3>@product.Name</h3>
+                <h5>@product.Price $</h5>
+                <p>@product.Description</p>
+                <p><button value="@product.Id" class="btn btn-primary productItem" role="button">Buy</button></p>
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+
+    let products = document.getElementsByClassName("products")[0];
+    products.addEventListener("click", function (e) {
+        e.stopPropagation();
+        let target = e.target;
+
+        let targetId = target.classList.contains('productItem') ? target.value : null;
+
+        if (targetId != null) {
+            fetch("./Orders/AddProduct?id=" + targetId,
+                {
+                    method: 'POST',
+                });
+        }
+
+    })
+</script>
