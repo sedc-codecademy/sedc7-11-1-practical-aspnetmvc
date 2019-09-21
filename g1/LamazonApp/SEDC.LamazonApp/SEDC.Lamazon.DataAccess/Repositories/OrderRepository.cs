@@ -16,7 +16,7 @@ namespace SEDC.Lamazon.DataAccess.Repositories
         {
             return _context.Orders
                 .Include(o => o.ProductOrders)
-                    .ThenInclude(po => po.Product)
+                .ThenInclude(po => po.Product)
                 .Include(o => o.User);
         }
 
@@ -24,7 +24,7 @@ namespace SEDC.Lamazon.DataAccess.Repositories
         {
             return _context.Orders
                 .Include(o => o.ProductOrders)
-                    .ThenInclude(po => po.Product)
+                .ThenInclude(po => po.Product)
                 .Include(o => o.User)
                 .FirstOrDefault(o => o.Id == id);
         }

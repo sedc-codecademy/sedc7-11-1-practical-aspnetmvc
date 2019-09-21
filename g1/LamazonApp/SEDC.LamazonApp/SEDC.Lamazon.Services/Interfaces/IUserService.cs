@@ -7,7 +7,7 @@ namespace SEDC.Lamazon.Services.Interfaces
 {
     public interface IUserService
     {
-        int Register(RegisterViewModel registerModel);
+        void Register(RegisterViewModel registerModel);
         void Login(LoginViewModel loginModel);
         void Logout();
         UserViewModel GetCurrentUser(string username);

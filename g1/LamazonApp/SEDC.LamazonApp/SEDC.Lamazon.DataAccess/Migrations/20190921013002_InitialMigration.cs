@@ -192,6 +192,27 @@ namespace SEDC.Lamazon.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Invoices",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Address = table.Column<string>(nullable: true),
+                    PaymentType = table.Column<int>(nullable: false),
+                    OrderId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Invoices", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Invoices_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProductOrders",
                 columns: table => new
                 {
@@ -219,6 +240,20 @@ namespace SEDC.Lamazon.DataAccess.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "08de046b-3c03-4d1e-9be8-35d173275cae", "1282a28a-7d84-4e28-b604-8d18082d44f6", "admin", "ADMIN" },
+                    { "ffac02b1-da25-4024-9110-b669e2a5a870", "693c1e31-322e-464b-a028-bc6c57fedda0", "user", "USER" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "3a34435f-f183-402a-b2be-922ae4ad9017", 0, "1da5b0e7-25a6-4c8a-a1fe-c166098b386e", "supplier@mail.com", true, null, false, null, "supplier@mail.com", "SUPPLIER", "AQAAAAEAACcQAAAAECnpVTYlQ2+nTouzAsrF80sFE2cWT3vv3SDaudNNzkmxh6S+OtUAbfsDQ33A2glrMQ==", null, false, "", false, "supplier" });
+
+            migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "Id", "Category", "Description", "Name", "Price" },
                 values: new object[,]
@@ -236,6 +271,11 @@ namespace SEDC.Lamazon.DataAccess.Migrations
                     { 11, 4, "A bag of ice", "Ice", 3.0 },
                     { 12, 4, "Plates for the whole family", "Plastic plates", 5.0 }
                 });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "UserId", "RoleId" },
+                values: new object[] { "3a34435f-f183-402a-b2be-922ae4ad9017", "08de046b-3c03-4d1e-9be8-35d173275cae" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -277,6 +317,12 @@ namespace SEDC.Lamazon.DataAccess.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Invoices_OrderId",
+                table: "Invoices",
+                column: "OrderId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_UserId",
                 table: "Orders",
                 column: "UserId");
@@ -303,6 +349,9 @@ namespace SEDC.Lamazon.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Invoices");
 
             migrationBuilder.DropTable(
                 name: "ProductOrders");

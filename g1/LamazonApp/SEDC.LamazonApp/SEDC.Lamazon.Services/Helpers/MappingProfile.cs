@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SEDC.Lamazon.Domain.Models;
+using SEDC.Lamazon.Models.Domain;
 using SEDC.Lamazon.WebModels_.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,9 @@ namespace SEDC.Lamazon.Services.Helpers
                 .ForMember(dest => dest.Category, src => src.MapFrom(x => x.Category))
                 .ReverseMap()
                 .ForMember(dest => dest.ProductOrders, src => src.Ignore());
+
+            CreateMap<Invoice, InvoiceViewModel>()
+                .ReverseMap();
         }
     }
 }
