@@ -14,5 +14,6 @@ namespace SEDC.Lamazon.Services.Interfaces
         int ChangeStatus(int orderId, StatusTypeViewModel status);
         int AddProduct(int orderId, int productId);
         int RemoveProduct(int orderId, int productId);
+        OrderViewModel GetCurrentOrder(string userId);
     }
 }
