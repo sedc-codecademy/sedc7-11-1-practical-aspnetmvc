@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SEDC.Football.DataLayer\SEDC.Football.DataLayer.csproj" />
+    <ProjectReference Include="..\SEDC.Football.Domain\SEDC.Football.Domain.csproj" />
+    <ProjectReference Include="..\SEDC.Football.ViewModel\SEDC.Football.ViewModel.csproj" />
+  </ItemGroup>
+
+</Project>
