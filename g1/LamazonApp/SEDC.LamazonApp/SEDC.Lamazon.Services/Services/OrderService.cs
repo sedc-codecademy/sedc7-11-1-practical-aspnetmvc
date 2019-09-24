@@ -29,9 +29,22 @@ namespace SEDC.Lamazon.Services.Services
             _mapper = mapper;
         }
 
-        public int AddProduct(int orderId, int productId)
+        public int AddProduct(int orderId, int productId, string userId)
         {
-            throw new NotImplementedException();
+            Product product = _productRepository.GetById(productId);
+            Order order = _orderRepository.GetById(orderId);
+
+            User user = _userRepository.GetById(userId);
+            order.ProductOrders.Add(
+                new ProductOrder()
+                {
+                    Product = product,
+                    Order = order
+                });
+
+            order.User = user;
+
+            return _orderRepository.Update(order);
         }
 
         public int ChangeStatus(int orderId, StatusTypeViewModel status)
@@ -72,6 +85,12 @@ namespace SEDC.Lamazon.Services.Services
         public OrderViewModel GetOrderById(int id)
         {
             return _mapper.Map<OrderViewModel>(_orderRepository.GetById(id));
+        }
+
+        public OrderViewModel GetOrderById(int orderId, string userId)
+        {
+            User user = _userRepository.GetById(userId);
+            return _mapper.Map<OrderViewModel>(_orderRepository.GetById(orderId));
         }
 
         public int RemoveProduct(int orderId, int productId)

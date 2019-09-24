@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SEDC.Lamazon.DataAccess.Interfaces;
+using SEDC.Lamazon.DataAccess.Repositories;
 using SEDC.Lamazon.Domain.Models;
 using SEDC.Lamazon.Services.Interfaces;
 using SEDC.Lamazon.WebModels_.Enums;
