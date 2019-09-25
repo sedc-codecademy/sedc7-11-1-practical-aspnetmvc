@@ -9,7 +9,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SEDC.Football.BusinessLayer.Helpers;
 using SEDC.Football.DataLayer;
+using SEDC.Football.DataLayer.Interfaces;
+using SEDC.Football.DataLayer.Repositories;
 
 namespace SEDC.Football.WebApplication
 {
@@ -31,6 +34,8 @@ namespace SEDC.Football.WebApplication
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+            DIModule.RegisterDependencies(services, Configuration.GetConnectionString("Default"));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

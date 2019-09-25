@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SEDC.Football.Domain.Models;
 
-namespace SEDC.Football.DataLayer
+namespace SEDC.Football.DataLayer.Maps
 {
     public class PlayerMap : IEntityTypeConfiguration<Player>
     {
@@ -30,8 +30,9 @@ namespace SEDC.Football.DataLayer
                 .IsRequired();
 
             builder
-                .HasOne(p => p.Team);
-            
+                .HasOne(p => p.Team)
+                .WithMany(p => p.Players)
+                .HasForeignKey(fk => fk.TeamId);
         }
     }
 }
