@@ -13,7 +13,7 @@ namespace Lamazon.Services.Interfaces
         OrderViewModel GetOrderById(int id);
         OrderViewModel GetCurrentOrder(string userId);
         void CreateOrder(OrderViewModel order);
-        void ChangeStatus(int orderId, string userId, StatusTypeViewModel status);
+        void ChangeStatus(int orderId, StatusTypeViewModel status);
         void AddProduct(int orderId, int productId);
         void RemoveProduct(int orderId, int productId);
     }

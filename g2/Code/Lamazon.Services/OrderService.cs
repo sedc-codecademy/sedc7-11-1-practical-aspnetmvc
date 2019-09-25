@@ -52,13 +52,13 @@ namespace Lamazon.Services
             //    .ToList();
             return _mapper.Map<IEnumerable<OrderViewModel>>(
                 _orderRepo.GetAll()
-                .Where(o => o.UserId == userId)
+                    .Where(o => o.UserId == userId)
             );
         }
 
-        public OrderViewModel GetOrderById(int id)
+        public OrderViewModel GetOrderById(int orderId)
         {
-            Order order = _orderRepo.GetById(id);
+            Order order = _orderRepo.GetById(orderId);
             if (order == null)
                 throw new Exception("Order does not exist");
 
@@ -86,18 +86,12 @@ namespace Lamazon.Services
             );
         }
 
-        public void ChangeStatus(int orderId, string userId, StatusTypeViewModel status)
+        public void ChangeStatus(int orderId, StatusTypeViewModel status)
         {
-            Order order = _orderRepo.GetById(orderId);
-            User user = _userRepo.GetById(userId);
-
-            order.Status = (StatusType)status;
-
             _orderRepo.Update(
                 new Order
                 {
-                    //Id = orderId,
-                    User = user,
+                    Id = orderId,
                     Status = (StatusType)status
                 }
             );

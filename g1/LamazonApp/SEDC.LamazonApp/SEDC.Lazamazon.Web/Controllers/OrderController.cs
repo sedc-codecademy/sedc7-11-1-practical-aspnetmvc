@@ -30,5 +30,46 @@ namespace SEDC.Lazamazon.Web.Controllers
             var order = _orderService.GetCurrentOrder(user.Id);
             return View(order);
         }
+
+        
+        public IActionResult OrderDetails(int orderId)
+        {
+            UserViewModel user = _userService.GetCurrentUser(User.Identity.Name);
+            OrderViewModel order = _orderService.GetOrderById(orderId, user.Id);
+
+            return View("order", order);
+        }
+
+        public int AddProduct(int productId)
+        {
+            UserViewModel user = _userService.GetCurrentUser(User.Identity.Name);
+            OrderViewModel order = _orderService.GetCurrentOrder(user.Id);
+
+           return _orderService.AddProduct(order.Id, productId, user.Id);
+        }
+
+        public IActionResult ListOrders()
+        {
+
+        }
+
+        public IActionResult ChangeStatus(int orderId, int statusId)
+        {
+
+        }
+
+        public IActionResult ListAllOrders()
+        {
+
+        }
+
+        public IActionResult ConfirmOrder(int orderId)
+        {
+
+        }
+
+
+
+
     }
 }
