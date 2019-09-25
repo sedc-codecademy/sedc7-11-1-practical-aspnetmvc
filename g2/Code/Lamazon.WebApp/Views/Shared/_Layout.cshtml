@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    bool IsSupplier = User.IsInRole("supplier");
+    bool IsAdmin = User.IsInRole("admin");
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -30,8 +35,34 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Products" asp-action="Index">Products</a></li>
-                    <li><a asp-area="" asp-controller="Orders" asp-action="Index">Orders</a></li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @if (IsSupplier || IsAdmin)
+                        {
+                            if (IsAdmin)
+                            {
+                                <li><a asp-area="" asp-controller="Products" asp-action="ListProducts">Products</a></li>
+                            }
+                            <li><a asp-area="" asp-controller="Orders" asp-action="ListAllOrders">Orders</a></li>
+                        }
+                        else
+                        {
+                            <li><a asp-area="" asp-controller="Products" asp-action="ListProducts">Products</a></li>
+                            <li><a asp-area="" asp-controller="Orders" asp-action="ListUserOrders">Orders</a></li>
+                        }
+
+                    }
+
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a asp-controller="Users" asp-action="Logout">Logout</a></li>
+                    }
+                    else
+                    {
+                        <li><a asp-controller="Users" asp-action="Login">Login</a></li>
+                    }
                 </ul>
             </div>
         </div>

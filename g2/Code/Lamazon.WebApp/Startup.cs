@@ -87,7 +87,7 @@ namespace Lamazon.WebApp
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Products}/{action=Index}");
+                    template: "{controller=Products}/{action=ListProducts}");
             });
         }
     }

@@ -1,9 +1,13 @@
 ﻿@model IEnumerable<ProductViewModel>
 
-
+@{ 
+    ViewData["Title"] = "Products";
+    bool IsAdmin = User.IsInRole("admin");
+}
 
 
 <h2>Products</h2>
+
 <div class="products">
     @foreach (var product in Model)
     {
@@ -15,7 +19,10 @@
                 <h3>@product.Name</h3>
                 <h5>@product.Price $</h5>
                 <p>@product.Description</p>
-                <p><button value="@product.Id" class="btn btn-primary productItem" role="button">Buy</button></p>
+                @if (!IsAdmin)
+                {
+                    <a class="btn btn-primary" asp-controller="Products" asp-action="AddToCart" asp-route-productId="@product.Id">Add to cart</a>
+                }
             </div>
         </div>
     }
