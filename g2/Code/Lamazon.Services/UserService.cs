@@ -8,6 +8,7 @@ using Lamazon.WebModels.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Lamazon.Services
@@ -89,6 +90,16 @@ namespace Lamazon.Services
                 throw new Exception("User does not exist");
 
             return _mapper.Map<UserViewModel>(user);
+        }
+
+        public string GetUserRole(string username)
+        {
+            User user = _userRepo.GetByUsername(username);
+            string role = _userManager
+                .GetRolesAsync(user).Result
+                .FirstOrDefault();
+
+            return role;
         }
     }
 }
