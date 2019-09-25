@@ -56,8 +56,6 @@ namespace Services.Services
             {
                 throw new Exception($"Register Failed. {result.Errors.First().Description}");
             }
-
-            throw new System.NotImplementedException();
         }
 
         public void Login()
