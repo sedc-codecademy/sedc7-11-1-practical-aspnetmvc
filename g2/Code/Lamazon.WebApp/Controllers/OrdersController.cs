@@ -10,79 +10,73 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Lamazon.WebApp.Controllers
 {
+    [Authorize]
     public class OrdersController : Controller
     {
         private readonly IOrderService _orderService;
         private readonly IUserService _userService;
-        private readonly IProductService _productService;
 
-        public OrdersController(IOrderService orderService,
-                                IUserService userService,
-                                IProductService productService)
+        public OrdersController(IOrderService orderService, IUserService userService)
         {
             _orderService = orderService;
             _userService = userService;
-            _productService = productService;
-        }
-        
-
-        [Authorize(Roles = "customer")]
-        public IActionResult Order()
-        {
-            UserViewModel user = _userService.GetCurrentUser(User.Identity.Name);
-            return View(_orderService.GetCurrentOrder(user.Id));
         }
 
         [Authorize(Roles = "customer")]
-        public IActionResult OrderDetails(int id)
+        public IActionResult ListUserOrders()
         {
-            return View(_orderService.GetOrderById(id));
+            UserViewModel user = _userService.GetCurrentUser(User.Identity.Name);
+
+            ViewBag.UserOption = UserOptions.Customer;
+            return View("Index", _orderService.GetUserOrders(user.Id));
         }
 
         [Authorize(Roles = "customer")]
-        public IActionResult ListOfOrders()
+        public IActionResult FinishOrder(int orderId)
         {
-            UserViewModel user = _userService.GetCurrentUser(User.Identity.Name);
-            List<OrderViewModel> orders = _orderService.GetUserOrders(user.Id).ToList();
-            return View(orders);
-        }
-        
-        [HttpPost]
-        //[Authorize(Roles = "customer")]
-        public IActionResult AddProduct(int id)
-        {
-            UserViewModel user = _userService.GetCurrentUser(User.Identity.Name);
-            OrderViewModel order = _orderService.GetCurrentOrder(user.Id);
+            _orderService.ChangeStatus(orderId, StatusTypeViewModel.Processing);
 
-            _orderService.AddProduct(order.Id, id);
-
-            return View();
+            return RedirectToAction(nameof(ListUserOrders));
         }
 
         [Authorize(Roles = "customer")]
-        public IActionResult ChangeStatus(int id, int statusId)
+        public IActionResult CancelOrder(int orderId)
         {
-            UserViewModel user = _userService.GetCurrentUser(User.Identity.Name);
-            List<OrderViewModel> orders = _orderService.GetUserOrders(user.Id).ToList();
+            _orderService.ChangeStatus(orderId, StatusTypeViewModel.Canceled);
 
-            _orderService.ChangeStatus(id, user.Id, (StatusTypeViewModel)statusId);
-            return RedirectToAction("index", "products");
+            return RedirectToAction(nameof(ListUserOrders));
         }
 
-
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "supplier, admin")]
         public IActionResult ListAllOrders()
         {
-            List<OrderViewModel> allOrders = _orderService.GetAllOrders().ToList();
-            return View(allOrders);
+            ViewBag.UserOption = UserOptions.Supplier;
+
+            return View("Index", _orderService.GetAllOrders());
         }
 
-        [Authorize(Roles = "admin")]
-        public IActionResult ConfirmOrder(int id)
+        [Authorize(Roles = "supplier, admin")]
+        public IActionResult ConfirmOrder(int orderId)
         {
-            OrderViewModel order = _orderService.GetOrderById(id);
-            _orderService.ChangeStatus(order.Id, order.User.Id, StatusTypeViewModel.Confirmed);
-            return RedirectToAction("listallorders");
+            _orderService.ChangeStatus(orderId, StatusTypeViewModel.Confirmed);
+
+            return RedirectToAction(nameof(ListAllOrders));
+        }
+
+        [Authorize(Roles = "supplier, admin")]
+        public IActionResult DeclineOrder(int orderId)
+        {
+            _orderService.ChangeStatus(orderId, StatusTypeViewModel.Declined);
+
+            return RedirectToAction(nameof(ListAllOrders));
+        }
+
+        [Authorize(Roles = "supplier, admin")]
+        public IActionResult MarkAsDelivered(int orderId)
+        {
+            _orderService.ChangeStatus(orderId, StatusTypeViewModel.Delivered);
+
+            return RedirectToAction(nameof(ListAllOrders));
         }
     }
 }

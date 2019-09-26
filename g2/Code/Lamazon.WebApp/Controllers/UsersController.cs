@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Lamazon.Domain.Models;
 using Lamazon.Services.Interfaces;
 using Lamazon.WebModels.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lamazon.WebApp.Controllers
 {
+    [Authorize]
     public class UsersController : Controller
     {
         private readonly IUserService _userService;
@@ -19,34 +21,42 @@ namespace Lamazon.WebApp.Controllers
             _userService = userService;
         }
 
+        [AllowAnonymous]
         public IActionResult LogIn()
         {
             return View(new LoginViewModel());
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult LogIn(LoginViewModel model)
         {
             _userService.Login(model);
-            return RedirectToAction("index", "products");
+
+            if (User.IsInRole("supplier"))
+                return RedirectToAction("ListAllOrders", "Orders");
+
+            return RedirectToAction("ListProducts", "Products");
         }
 
+        [AllowAnonymous]
         public IActionResult Register()
         {
             return View(new RegisterViewModel());
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult Register(RegisterViewModel model)
         {
             _userService.Register(model);
-            return RedirectToAction("index", "products");
+            return RedirectToAction("ListProducts", "Products");
         }
 
         public IActionResult LogOut()
         {
             _userService.Logout();
-            return RedirectToAction("index", "home");
+            return RedirectToAction("Login", "Users");
         }
     }
 }

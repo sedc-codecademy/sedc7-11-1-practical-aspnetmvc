@@ -1,7 +1,66 @@
-﻿
+﻿@model IEnumerable<OrderViewModel>
+
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Order";
+    //bool IsSupplier = User.IsInRole("supplier");
 }
 
-<h2>Index</h2>
+<h2>Orders</h2>
 
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Status</th>
+            <th>Price</th>
+            <th>User</th>
+            <th>Product</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (OrderViewModel o in Model)
+        {
+        <tr>
+            <td>@o.Id</td>
+            <td>@o.Status</td>
+            <td>@o.Price$</td>
+            <td>@o.User.FullName</td>
+            <td>
+                @foreach (ProductViewModel p in o.Products)
+                {
+                    <span>@p.Name, </span>
+                }
+            </td>
+
+            @if (ViewBag.UserOption == UserOptions.Customer)
+            {
+                @if (o.Status == StatusTypeViewModel.Init)
+                {
+                    <td>
+                        <a asp-controller="Orders" asp-action="FinishOrder" asp-route-orderId="@o.Id">Finish</a>
+                        /
+                        <a asp-controller="Orders" asp-action="CancelOrder" asp-route-orderId="@o.Id">Cancel</a>
+                    </td>
+                }
+            }
+            else if (ViewBag.UserOption == UserOptions.Supplier || ViewBag.UserOption == UserOptions.Admin)
+            {
+                @if (o.Status == StatusTypeViewModel.Processing)
+                {
+                    <td>
+                        <a asp-controller="Orders" asp-action="ConfirmOrder" asp-route-orderId="@o.Id">Approve</a>
+                        /
+                        <a asp-controller="Orders" asp-action="DeclineOrder" asp-route-orderId="@o.Id">Decline</a>
+                    </td>
+                }
+                @if (o.Status == StatusTypeViewModel.Confirmed)
+                {
+                    <td>
+                        <a asp-controller="Orders" asp-action="MarkAsDelivered" asp-route-orderId="@o.Id">Mark as delivered</a>
+                    </td>
+                }
+            }
+        </tr>
+        }
+    </tbody>
+</table>

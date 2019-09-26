@@ -10,6 +10,10 @@ namespace SEDC.Football.Domain.Models
 
         public DateTime PlayedOn { get; set; }
 
+        public int HomeTeamId { get; set; }
+
+        public int AwayTeamId { get; set; }
+
         public virtual Team HomeTeam { get; set; }
 
         public virtual Team AwayTeam { get; set; }

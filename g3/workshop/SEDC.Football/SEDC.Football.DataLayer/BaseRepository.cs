@@ -8,7 +8,7 @@ namespace SEDC.Football.DataLayer
     public abstract class BaseRepository<T> : IRepository<T>
         where T : Entity
     {
-        private readonly DbSet<T> _entity;
+        protected readonly DbSet<T> _entity;
         private readonly FootballContext _context;
 
         public BaseRepository(FootballContext context)
@@ -19,23 +19,23 @@ namespace SEDC.Football.DataLayer
 
         public IQueryable<T> Table => _entity.AsQueryable();
 
-        public virtual T Get(int id)
+        public T Get(int id)
         {
             return _entity.Find(id);
         }
 
-        public virtual IEnumerable<T> GetAll()
+        public IEnumerable<T> GetAll()
         {
             return _entity;
         }
 
-        public virtual int Insert(T entity)
+        public int Insert(T entity)
         {
             _entity.Add(entity);
             return _context.SaveChanges();
         }
 
-        public virtual int Remove(T entity)
+        public int Remove(T entity)
         {
             var item = _entity.Find(entity.Id);
             if(item == null)
@@ -46,10 +46,15 @@ namespace SEDC.Football.DataLayer
             return _context.SaveChanges();
         }
 
-        public virtual int Update(T entity)
+        public int Update(T entity)
         {
             _entity.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
+            return _context.SaveChanges();
+        }
+
+        public int Commit()
+        {
             return _context.SaveChanges();
         }
     }

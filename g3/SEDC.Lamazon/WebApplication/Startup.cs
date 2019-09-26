@@ -6,10 +6,13 @@ using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Services.Helpers;
+using Services.Interfaces;
+using Services.Services;
 
 namespace WebApplication
 {
@@ -40,6 +43,12 @@ namespace WebApplication
             var appSettings = appConfig.Get<AppSettings>();
 
             DIModule.RegisterModule(services, appSettings.LamazonDbContext);
+
+            services.Configure<IdentityOptions>(opt =>
+            {
+            });
+
+            services.AddTransient<IUserService, UserService>();
 
             // Register automapper
             services.AddAutoMapper();
