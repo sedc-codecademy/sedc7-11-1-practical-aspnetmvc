@@ -1,0 +1,40 @@
+﻿@model SEDC.Lamazon.WebModels_.ViewModels.RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h2>We are so glad you decided to join us!</h2>
+
+@*<form asp-controller="users" asp-action="register" method="post">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-2">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-text-size" aria-hidden="true"></span></span>
+            </div>
+        </div>
+    </div>
+</form>*@
+
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-controller="users" asp-action="register" method="post">
+            <div class="form-group input-group">
+                <div class="input-group-addon">
+                    <span class="input-group-text"> <i class="glyphicon glyphicon-user"></i> </span>
+                </div>
+                <input asp-for="FirstName" class="form-control" placeholder="First name" type="text">
+            </div> 
+            <div class="form-group input-group">
+                <div class="input-group-addon">
+                    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                </div>
+                <input asp-for="LastName" class="form-control" placeholder="Last name" type="email">
+            </div> 
+            <p class="text-center">Have an account? <button class="btn btn-success" type="submit">Register</button></p>
+        </form>
+    </div>
+</div>
+
+

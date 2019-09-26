@@ -46,6 +46,15 @@ namespace SEDC.Lazamazon.Web
 
             DIModule.RegisterModule(services, appSettings.LamazonDbConnectionString);
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                options.LoginPath = "/Users/LogIn";
+                options.AccessDeniedPath = "/Users/LogIn";
+                options.SlidingExpiration = true;
+            });
+
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IProductService, ProductService>();

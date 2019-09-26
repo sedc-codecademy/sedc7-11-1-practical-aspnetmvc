@@ -1,0 +1,26 @@
+﻿@model List<ProductViewModel>
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h1>Products</h1>
+
+<div class="products">
+    @foreach (var product in Model)
+    {
+        <div class="thumbnail">
+            <img class="product-image" src="~/images/Products/product-@(product.Id).png" alt="..." />
+            <div class="caption">
+                <input asp-for="@product.Id" hidden />
+                <h3>@product.Name</h3>
+                <h4>@product.Description</h4>
+                <h5>@product.Price $</h5>
+                <p><button value="@product.Id" class="btn btn-primary productItem" role="button">Add to cart</button></p>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+

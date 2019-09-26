@@ -23,6 +23,18 @@ body {
     width: 100%;
 }
 
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.product-image {
+    height: 300px !important;
+    width: 250px !important;
+}
+
 /* QR code generator */
 #qrCode {
     margin: 15px;

@@ -39,7 +39,7 @@ namespace SEDC.Lazamazon.Web.Controllers
         public IActionResult Register(RegisterViewModel model)
         {
             _userService.Register(model);
-            return RedirectToAction("index", "product");
+            return RedirectToAction("products", "product");
         }
     }
 }
