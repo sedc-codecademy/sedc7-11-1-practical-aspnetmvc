@@ -17,14 +17,14 @@ namespace SEDC.Lazamazon.Web.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "Hello! Welcome to Lamazon online store! We are the cheapest store in the world!";
 
             return View();
         }
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "Email: lamazon@gmail.com";
 
             return View();
         }

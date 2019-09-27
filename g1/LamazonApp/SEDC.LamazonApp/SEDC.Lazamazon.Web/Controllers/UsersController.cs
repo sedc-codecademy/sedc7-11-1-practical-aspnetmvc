@@ -27,7 +27,11 @@ namespace SEDC.Lazamazon.Web.Controllers
         public IActionResult LogIn(LoginViewModel model)
         {
             _userService.Login(model);
-            return RedirectToAction("index", "product");
+            if (User.IsInRole("admin"))
+            {
+                return RedirectToAction("listallorders", "order");
+            }
+            return RedirectToAction("products", "product");
         }
 
         public IActionResult Register()
@@ -38,8 +42,18 @@ namespace SEDC.Lazamazon.Web.Controllers
         [HttpPost]
         public IActionResult Register(RegisterViewModel model)
         {
-            _userService.Register(model);
-            return RedirectToAction("products", "product");
+            if (ModelState.IsValid)
+            {
+                _userService.Register(model);
+                return RedirectToAction("products", "product");
+            }
+            return View(model);
+        }
+
+        public IActionResult LogOut()
+        {
+            _userService.Logout();
+            return RedirectToAction("index", "home");
         }
     }
 }

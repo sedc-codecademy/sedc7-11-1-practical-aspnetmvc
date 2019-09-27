@@ -21,6 +21,24 @@
     }
 </div>
 
+<script>
+    let products = document.getElementsByClassName("products")[0];
+    products.addEventListener("click", function (e) {
+        e.stopPropagation();
+        let target = e.target;
+        console.log(target);
+
+        let targetId = target.classList.contains("productItem") ? target.value : null;
+
+        if (targetId != null) {
+            fetch("/Order/AddProduct?productId=" + targetId, {
+                method: "post",
+            })
+        }
+    });
+
+</script>
+
 
 
 
