@@ -15,12 +15,18 @@ namespace Lamazon.DataAccess.Repositories
         public IEnumerable<Invoice> GetAll()
         {
             return _db.Invoices
+                .Include(i => i.Order)
+                    .ThenInclude(o => o.OrdersProducts)
+                        .ThenInclude(op => op.Product)
                 .ToList();
         }
 
         public Invoice GetById(int id)
         {
             return _db.Invoices
+                .Include(i => i.Order)
+                    .ThenInclude(o => o.OrdersProducts)
+                        .ThenInclude(op => op.Product)
                 .FirstOrDefault(i => i.Id == id);
         }
 

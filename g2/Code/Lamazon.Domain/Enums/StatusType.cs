@@ -11,6 +11,7 @@ namespace Lamazon.Domain.Enums
         Confirmed,
         Declined,
         Delivered,
-        Canceled
+        Canceled,
+        Paid
     }
 }

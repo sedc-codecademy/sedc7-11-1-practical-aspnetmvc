@@ -11,6 +11,7 @@ namespace Lamazon.WebModels.Enums
         Confirmed,
         Declined,
         Delivered,
-        Canceled
+        Canceled,
+        Paid
     }
 }
