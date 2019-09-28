@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "TestOrder";
+
+    string fName = ViewBag.FirstName;
+    string lName = ViewBag.LastName;
+}
+
+@if (fName != null && lName != null)
+{
+    <h2>Hello @fName @lName</h2>
+}
+else
+{
+    <h2>Hello user!</h2>
+
+}
+
+

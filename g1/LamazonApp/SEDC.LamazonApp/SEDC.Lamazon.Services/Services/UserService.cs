@@ -29,18 +29,26 @@ namespace SEDC.Lamazon.Services.Services
             _userRepository = userRepository;
             _mapper = mapper;
         }
-        
+
 
         public UserViewModel GetCurrentUser(string username)
         {
-            User user = _userRepository.GetByUsername(username);
-
-            return new UserViewModel()
+            try
             {
-                UserName = user.UserName,
-                Id = user.Id,
-                FullName = user.FullName
-            };
+                User user = _userRepository.GetByUsername(username);
+
+                return new UserViewModel()
+                {
+                    UserName = user.UserName,
+                    Id = user.Id,
+                    FullName = user.FullName
+                };
+            }
+            catch (Exception ex)
+            {
+                string message = $"User with username {username} does not exist!";
+                throw new Exception(message, ex);
+            }
         }
 
         public void Login(LoginViewModel loginModel)
@@ -85,7 +93,8 @@ namespace SEDC.Lamazon.Services.Services
 
                 Login(new LoginViewModel()
                 {
-                    Username = registerModel.Username, Password = registerModel.Password
+                    Username = registerModel.Username,
+                    Password = registerModel.Password
                 });
             }
             else

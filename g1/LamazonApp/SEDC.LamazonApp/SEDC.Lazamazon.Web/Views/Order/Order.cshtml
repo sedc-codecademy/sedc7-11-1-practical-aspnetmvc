@@ -1,6 +1,7 @@
 ﻿@model OrderViewModel
 @{
     ViewData["Title"] = "Order";
+    var statusInit = StatusTypeViewModel.Init;
 }
 
 <h1>Order</h1>
@@ -34,7 +35,7 @@
         <div class="row">
             <div class="col-md-12">
                 <label asp-for="Products"></label>
-                @if (Model.Products.Count() > 0 && Model.Status == StatusTypeViewModel.Init)
+                @if (Model.Products.Count() > 0)
                 {
                     <ul>
                         @foreach (var product in Model.Products)
@@ -42,7 +43,10 @@
                             <li>@product.Name : @product.Price $</li>
                         }
                     </ul>
-                    <a asp-controller="order" asp-action="changestatus" asp-route-orderId="@Model.Id" asp-route-statusId="1">Proceed</a>
+                    @if (Model.Status == statusInit)
+                    {
+                        <a asp-controller="order" asp-action="changestatus" asp-route-orderId="@Model.Id" asp-route-statusId="1" class="btn btn-info">Proceed</a>
+                    }
                 }
                 else
                 {

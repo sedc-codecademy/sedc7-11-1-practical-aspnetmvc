@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NToastNotify;
 using SEDC.Lamazon.Services.Interfaces;
 using SEDC.Lamazon.WebModels_.Enums;
 using SEDC.Lamazon.WebModels_.ViewModels;
+using SEDC.Lazamazon.Web.Models;
 
 namespace SEDC.Lazamazon.Web.Controllers
 {
@@ -15,14 +17,17 @@ namespace SEDC.Lazamazon.Web.Controllers
         private readonly IOrderService _orderService;
         private readonly IUserService _userService;
         private readonly IProductService _productService;
+        private readonly IToastNotification _toastNotification;
 
         public OrderController(IOrderService orderService,
                                IUserService userService,
-                               IProductService productService)
+                               IProductService productService,
+                               IToastNotification toastNotification)
         {
             _orderService = orderService;
             _userService = userService;
             _productService = productService;
+            _toastNotification = toastNotification;
         }
 
         [Authorize(Roles = "user")]
@@ -39,7 +44,17 @@ namespace SEDC.Lazamazon.Web.Controllers
             UserViewModel user = _userService.GetCurrentUser(User.Identity.Name);
             OrderViewModel order = _orderService.GetOrderById(orderId, user.Id);
 
-            return View("order", order);
+            if (order.Id > 0)
+            {
+                return View("order", order);                
+            }
+            else
+            {
+                // Add view to show an error message 
+                //throw new Exception();
+                return View("Error", new ErrorViewModel());
+            }
+
         }
 
         [Authorize(Roles = "user")]
@@ -48,8 +63,38 @@ namespace SEDC.Lazamazon.Web.Controllers
             UserViewModel user = _userService.GetCurrentUser(User.Identity.Name);
             OrderViewModel order = _orderService.GetCurrentOrder(user.Id);
 
-           return _orderService.AddProduct(order.Id, productId, user.Id);
+            string productName;
+            int result = _orderService.AddProduct(order.Id, productId, user.Id, out productName);
+
+            if(result >= 0)
+            {
+                //string message1 = $"Product {productName} added to cart successfully!";
+                string message = String.Format("Product {0} added to cart successfully!", productName);
+                _toastNotification.AddSuccessToastMessage(message);
+                return result;
+            }
+            else
+            {
+                string message = String.Format("Something went wrong while adding {0} into cart!", productName);
+                _toastNotification.AddErrorToastMessage(message);
+                return result;
+            }
         }
+
+        //public IActionResult GetMessageResult(int result)
+        //{
+        //    List<ProductViewModel> products = _productService.GetAllProducts().ToList();
+        //    if(result >= 0)
+        //    {
+        //        _toastNotification.AddInfoToastMessage("Successfully added!");
+        //    }
+        //    else
+        //    {
+        //        _toastNotification.AddErrorToastMessage("Error");
+        //    }
+        //    return View("~/Views/Product/Products.cshtml", products);
+        //}
+
 
         [Authorize(Roles = "user")]
         public IActionResult ListOrders()
@@ -91,8 +136,22 @@ namespace SEDC.Lazamazon.Web.Controllers
             return RedirectToAction("listallorders");
         }
 
+        [Authorize(Roles = "admin")]
+        public IActionResult DeclineOrder(int orderId)
+        {
+            OrderViewModel order = _orderService.GetOrderById(orderId);
+            _orderService.ChangeStatus(orderId, order.User.Id, StatusTypeViewModel.Declined);
+            return RedirectToAction("listallorders");
+        }
 
 
+        //Test and see how query parameters work! If you want to test, go to TestOrder.cshtml
+        public IActionResult TestOrder(string name = "Martin", string lastname = "Panovski")
+        {
+            ViewBag.FirstName = name;
+            ViewBag.LastName = lastname;
 
+            return View();
+        }
     }
 }
