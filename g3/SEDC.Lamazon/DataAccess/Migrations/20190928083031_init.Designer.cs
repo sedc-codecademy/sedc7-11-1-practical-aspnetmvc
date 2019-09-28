@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(LamazonDbContext))]
-    [Migration("20190918153420_init")]
+    [Migration("20190928083031_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -168,7 +168,7 @@ namespace DataAccess.Migrations
                     b.ToTable("AspNetUsers");
 
                     b.HasData(
-                        new { Id = "aba8b1f6-c87e-4d93-83a3-5c649949c164", AccessFailedCount = 0, ConcurrencyStamp = "e980bfd0-c340-43dc-81cc-63e19544a2a0", Email = "supplier@email.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "SUPPLIER@EMAIL.COM", NormalizedUserName = "SUPPLIER", PasswordHash = "AQAAAAEAACcQAAAAEC3BI89K435RoCOxCTx3CM65PTQdB8p4k0cgDTf1Yj+LS0mD2esIqlzQe/TGOGgvpA==", PhoneNumberConfirmed = false, SecurityStamp = "", TwoFactorEnabled = false, UserName = "supplier" }
+                        new { Id = "3c8b9e31-f309-4252-afb8-22e83e5b7777", AccessFailedCount = 0, ConcurrencyStamp = "363bcd98-b764-4ab9-bbe7-1d6c2a61c3c4", Email = "supplier@email.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "SUPPLIER@EMAIL.COM", NormalizedUserName = "SUPPLIER", PasswordHash = "AQAAAAEAACcQAAAAEKzm5dz8v1X4GmjxdIlCsG2px/VzzwABDN5Rx9BWq/e6e+I2FxpIJjJgsyjvo+Yojg==", PhoneNumberConfirmed = false, SecurityStamp = "", TwoFactorEnabled = false, UserName = "supplier" }
                     );
                 });
 
@@ -196,8 +196,8 @@ namespace DataAccess.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-                        new { Id = "fa752333-0811-423f-bb58-021a0f4fc56c", ConcurrencyStamp = "c314ad22-bfca-4550-bfa3-1ba4b33d38b5", Name = "admin", NormalizedName = "ADMIN" },
-                        new { Id = "dd4406c9-fa32-4015-aaab-b08b338f92f9", ConcurrencyStamp = "a61e76a2-b8a2-4617-973a-751271ba57ec", Name = "user", NormalizedName = "USER" }
+                        new { Id = "5082fdfc-49fe-49ce-b990-1202eafa6ffc", ConcurrencyStamp = "63a38e01-d795-4e17-b233-75377b698fad", Name = "admin", NormalizedName = "ADMIN" },
+                        new { Id = "925c171c-ce06-4b1b-94b8-fb167cd396a3", ConcurrencyStamp = "10bcb807-0744-465b-923a-5b89863d71d6", Name = "user", NormalizedName = "USER" }
                     );
                 });
 
@@ -272,7 +272,7 @@ namespace DataAccess.Migrations
                     b.ToTable("AspNetUserRoles");
 
                     b.HasData(
-                        new { UserId = "aba8b1f6-c87e-4d93-83a3-5c649949c164", RoleId = "fa752333-0811-423f-bb58-021a0f4fc56c" }
+                        new { UserId = "3c8b9e31-f309-4252-afb8-22e83e5b7777", RoleId = "5082fdfc-49fe-49ce-b990-1202eafa6ffc" }
                     );
                 });
 
