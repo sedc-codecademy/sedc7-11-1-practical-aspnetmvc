@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lamazon.DataAccess", "Lamaz
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lamazon.Domain", "Lamazon.Domain\Lamazon.Domain.csproj", "{FF9ABBC1-5D1F-421E-9FF4-3A7CDEDA21AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lamazon.WebModels", "Lamazon.WebModels\Lamazon.WebModels.csproj", "{D7B8605A-EDE0-4E72-B969-6C8445450072}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lamazon.WebModels", "Lamazon.WebModels\Lamazon.WebModels.csproj", "{D7B8605A-EDE0-4E72-B969-6C8445450072}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lamazon.Services", "Lamazon.Services\Lamazon.Services.csproj", "{E8A05966-B2BE-42ED-9F72-CC6CE2324DFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lamazon.Services", "Lamazon.Services\Lamazon.Services.csproj", "{E8A05966-B2BE-42ED-9F72-CC6CE2324DFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthPerformanceCheck", "HealthPerformanceCheck\HealthPerformanceCheck.csproj", "{8135B621-B2CC-4E6D-AA06-3C8F93E49ACF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{E8A05966-B2BE-42ED-9F72-CC6CE2324DFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8A05966-B2BE-42ED-9F72-CC6CE2324DFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8A05966-B2BE-42ED-9F72-CC6CE2324DFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8135B621-B2CC-4E6D-AA06-3C8F93E49ACF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8135B621-B2CC-4E6D-AA06-3C8F93E49ACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8135B621-B2CC-4E6D-AA06-3C8F93E49ACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8135B621-B2CC-4E6D-AA06-3C8F93E49ACF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

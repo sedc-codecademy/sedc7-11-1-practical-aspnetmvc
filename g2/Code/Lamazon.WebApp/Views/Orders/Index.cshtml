@@ -88,9 +88,10 @@
 <script>
     function getInvoiceData(orderId) {
         console.log("live!")
-        fetch(`http://localhost:62019/Invoices/ShowInvoice?orderId=${orderId} `)
+        fetch(`http://localhost:62019/Invoices/ShowInvoice?orderId=${orderId}`)
             .then(res => res.json())
             .then(data => {
+
                 console.log(data)
 
                 let paymentMethod = document.getElementById(`IPPaymentMethod${orderId}`)
