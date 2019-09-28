@@ -44,13 +44,20 @@ namespace Services.Services
 
             if (result.Succeeded)
             {
-                var currentUser = _userManager
+                User currentUser = _userManager
                     .FindByNameAsync(user.UserName)
                     .GetAwaiter()
                     .GetResult();
 
                 _userManager.AddToRoleAsync(currentUser, "user");
-                Login();
+
+                var loginUser = new LoginViewModel()
+                {
+                    Username = model.Username,
+                    Password = model.Password
+                };
+
+                Login(loginUser);
             }
             else
             {
@@ -58,9 +65,39 @@ namespace Services.Services
             }
         }
 
-        public void Login()
+        public void Login(LoginViewModel model)
         {
+            SignInResult result = _signInManager.PasswordSignInAsync(model.Username, model.Password, false, false).Result;
 
+            if (result.IsNotAllowed)
+            {
+                throw new Exception("Username and Password did not match!");
+            }
         }
+
+        public void Logout()
+        {
+            _signInManager.SignOutAsync();
+        }
+
+        public UserViewModel GetCurrentUser(string username)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                throw new Exception("Username is not valid!");
+            }
+
+            User user = _userRepository.GetByUsername(username);
+
+            var userViewModel =  new UserViewModel()
+            {
+                Id = user.Id,
+                FullName = user.FullName,
+                Username = user.UserName
+            };
+
+            return userViewModel;
+        }
+
     }
 }

@@ -6,6 +6,7 @@ using Lamazon.Services.Interfaces;
 using Lamazon.WebModels.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace Lamazon.WebApp.Controllers
 {
@@ -37,7 +38,16 @@ namespace Lamazon.WebApp.Controllers
             UserViewModel user = _userService.GetCurrentUser(User.Identity.Name);
             OrderViewModel order = _orderService.GetCurrentOrder(user.Id);
 
-            _orderService.AddProduct(order.Id, productId);
+            try
+            {
+                _orderService.AddProduct(order.Id, productId);
+                Log.Information($"{User.Identity.Name}: added to cart: {_productService.GetProductById(productId).Name}.");
+            }
+            catch(Exception ex)
+            {
+                Log.Error($"{User.Identity.Name}: failed to add to cart: {_productService.GetProductById(productId).Name}. " +
+                    $"Reason: {ex.Message}");
+            }
 
             return RedirectToAction("ListProducts");
         }

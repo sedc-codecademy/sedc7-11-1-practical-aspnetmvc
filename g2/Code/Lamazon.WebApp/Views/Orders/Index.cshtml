@@ -42,6 +42,26 @@
                         <a asp-controller="Orders" asp-action="CancelOrder" asp-route-orderId="@o.Id">Cancel</a>
                     </td>
                 }
+                @if (o.Status == StatusTypeViewModel.Confirmed)
+                {
+                    ViewData["OrderId"] = o.Id;
+                    string paymentPopupId = $"#paymentPopup{o.Id}";
+
+                    <td>
+                        <button class="btn btn-danger" data-toggle="modal" data-target="@paymentPopupId">Pay</button>
+                        <partial name="PaymentPopup" model="new InvoiceViewModel()" view-data="ViewData" />
+                    </td>
+                }
+                @if (o.Status == StatusTypeViewModel.Paid)
+                {
+                    ViewData["OrderId"] = o.Id;
+                    string invoicePopupId = $"#invoicePopup{o.Id}";
+
+                    <td>
+                        <button onclick="getInvoiceData(@o.Id)" class="btn btn-danger" data-toggle="modal" data-target="@invoicePopupId">Show Invoice</button>
+                        <partial name="InvoicePopup" view-data="ViewData" />
+                    </td>
+                }
             }
             else if (ViewBag.UserOption == UserOptions.Supplier || ViewBag.UserOption == UserOptions.Admin)
             {
@@ -64,3 +84,23 @@
         }
     </tbody>
 </table>
+
+<script>
+    function getInvoiceData(orderId) {
+        console.log("live!")
+        fetch(`http://localhost:62019/Invoices/ShowInvoice?orderId=${orderId}`)
+            .then(res => res.json())
+            .then(data => {
+
+                console.log(data)
+
+                let paymentMethod = document.getElementById(`IPPaymentMethod${orderId}`)
+                let address = document.getElementById(`IPAddress${orderId}`)
+                let price = document.getElementById(`IPPrice${orderId}`)
+
+                paymentMethod.value = data.PaymentMethod
+                address.value = data.Address
+                price.value = data.Price + "$"
+            })
+    }
+</script>

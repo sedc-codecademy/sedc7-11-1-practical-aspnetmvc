@@ -36,6 +36,7 @@ namespace Lamazon.Services
 
         public IEnumerable<OrderViewModel> GetAllOrders()
         {
+
             //return _orderRepo.GetAll()
             //    .Select(o => _mapper.Map<OrderViewModel>(o))
             //    .ToList();
@@ -70,7 +71,7 @@ namespace Lamazon.Services
             Order order = _orderRepo.GetAll()
                                     .LastOrDefault(o => o.UserId == userId);
 
-            if (order.Status != StatusType.Init || order == null)
+            if (order == null || order.Status != StatusType.Init)
             {
                 CreateOrder(new OrderViewModel { User = new UserViewModel { Id = userId } });
                 return GetCurrentOrder(userId);
