@@ -30,51 +30,76 @@ namespace SEDC.Lamazon.Services.Services
             _mapper = mapper;
         }
 
-        public int AddProduct(int orderId, int productId, string userId)
+        public int AddProduct(int orderId, int productId, string userId, out string productName)
         {
-            Product product = _productRepository.GetById(productId);
-            Order order = _orderRepository.GetById(orderId);
+            try
+            {
+                Product product = _productRepository.GetById(productId);
+                Order order = _orderRepository.GetById(orderId);
 
-            User user = _userRepository.GetById(userId);
-            order.ProductOrders.Add(
-                new ProductOrder()
-                {
-                    Product = product,
-                    Order = order
-                });
+                productName = product.Name;
+                User user = _userRepository.GetById(userId);
+                order.ProductOrders.Add(
+                    new ProductOrder()
+                    {
+                        Product = product,
+                        Order = order
+                    });
 
-            order.User = user;
-
-            return _orderRepository.Update(order);
+                order.User = user;
+                return _orderRepository.Update(order);
+            }
+            catch (Exception ex)
+            {
+                string message = $"Something went wrong adding product! {ex.InnerException}";
+                throw new Exception(message, ex);
+            }
+            
         }
 
         public int ChangeStatus(int orderId, string userId, StatusTypeViewModel status)
         {
-            Order order = _orderRepository.GetById(orderId);
-            User user = _userRepository.GetById(userId);
-
-            order.Status = (StatusType)status;
-
-            if(status == StatusTypeViewModel.Processing)
+            try
             {
-                _orderRepository.Insert(new Order()
-                {
-                    User = user,
-                    Status = StatusType.Init
-                });
-            }
+                Order order = _orderRepository.GetById(orderId);
+                User user = _userRepository.GetById(userId);
 
-            return _orderRepository.Update(order);
+                order.Status = (StatusType)status;
+
+                if (status == StatusTypeViewModel.Processing)
+                {
+                    _orderRepository.Insert(new Order()
+                    {
+                        User = user,
+                        Status = StatusType.Init
+                    });
+                }
+
+                return _orderRepository.Update(order);
+            }
+            catch (Exception ex)
+            {
+                string message = $"Something went wrong changing status! {ex.InnerException}";
+                throw new Exception(message, ex);
+            }
         }
 
         public int CreateOrder(OrderViewModel order, string userId)
         {
-            User user = _userRepository.GetById(userId);
+            try
+            {
+                User user = _userRepository.GetById(userId);
 
-            Order mappedOrder = _mapper.Map<Order>(order);
+                Order mappedOrder = _mapper.Map<Order>(order);
 
-            mappedOrder.User = user;
-            return _orderRepository.Insert(mappedOrder);
+                mappedOrder.User = user;
+                return _orderRepository.Insert(mappedOrder);
+            }
+            catch (Exception ex)
+            {
+                string message = $"Something went wrong creating order! {ex.InnerException}";
+                throw new Exception(message, ex);
+            }
         }
 
         public IEnumerable<OrderViewModel> GetAllOrders()
@@ -84,28 +109,54 @@ namespace SEDC.Lamazon.Services.Services
 
         public OrderViewModel GetCurrentOrder(string userId)
         {
-            Order order = _orderRepository.GetAll()
-                                          .Where(x => x.UserId == userId)
-                                          .LastOrDefault();
-            IEnumerable<Product> products = order.ProductOrders
-                                                 .Select(x => 
-                                                 _productRepository.GetById(x.ProductId));
-            OrderViewModel orderModel = _mapper.Map<OrderViewModel>(order);
+            try
+            {
+                Order order = _orderRepository.GetAll()
+                                              .Where(x => x.UserId == userId)
+                                              .LastOrDefault();
+                IEnumerable<Product> products = order.ProductOrders
+                                                     .Select(x =>
+                                                     _productRepository.GetById(x.ProductId));
+                OrderViewModel orderModel = _mapper.Map<OrderViewModel>(order);
 
-            orderModel.Products = _mapper.Map<List<ProductViewModel>>(products);
+                orderModel.Products = _mapper.Map<List<ProductViewModel>>(products);
 
-            return orderModel;
+                return orderModel;
+            }
+            catch (Exception ex)
+            {
+                string message = $"Order not exist! {ex.InnerException}";
+                throw new Exception(message, ex);
+            }
         }
 
         public OrderViewModel GetOrderById(int id)
         {
-            return _mapper.Map<OrderViewModel>(_orderRepository.GetById(id));
+            try
+            {
+                return _mapper.Map<OrderViewModel>(_orderRepository.GetById(id));
+            }
+            catch (Exception ex)
+            {
+                string message = $"Order not exist! {ex.InnerException}";
+                throw new Exception(message, ex);
+            }
         }
 
         public OrderViewModel GetOrderById(int orderId, string userId)
         {
             User user = _userRepository.GetById(userId);
-            return _mapper.Map<OrderViewModel>(_orderRepository.GetById(orderId));
+            Order order = _orderRepository.GetById(orderId);
+
+            if(user.Id == order.UserId)
+            {
+                return _mapper.Map<OrderViewModel>(order);
+            }
+            else
+            {
+                return new OrderViewModel();
+            }
+            
         }
 
         public int RemoveProduct(int orderId, int productId)

@@ -41,9 +41,13 @@
             {
                 <td>Waiting to be delivered!</td>
             }
+            else if(order.Status == StatusTypeViewModel.Declined)
+            {
+                <td>You have succesffuly declined this order!</td>
+            }
             else
             {
-                <td>Waiting for customer!</td>
+            <td>Waiting for customer!</td>
             }
         </tr>
         }

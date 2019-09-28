@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NToastNotify;
 using SEDC.Lamazon.DataAccess;
 using SEDC.Lamazon.Services.Helpers;
 using SEDC.Lamazon.Services.Interfaces;
@@ -55,6 +56,12 @@ namespace SEDC.Lazamazon.Web
                 options.SlidingExpiration = true;
             });
 
+            services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
+            {
+                ProgressBar = false,
+                PositionClass = ToastPositions.TopRight
+            });
+
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IProductService, ProductService>();
@@ -89,6 +96,8 @@ namespace SEDC.Lazamazon.Web
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+            app.UseNToastNotify();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

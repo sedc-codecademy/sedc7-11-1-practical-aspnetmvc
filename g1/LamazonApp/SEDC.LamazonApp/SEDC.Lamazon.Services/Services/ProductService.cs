@@ -63,8 +63,15 @@ namespace SEDC.Lamazon.Services.Services
             //model.Description = product.Description;
             //model.Category = (CategoryTypeViewModel)product.Category;
             //model.Price = product.Price;
-
-            return _mapper.Map<ProductViewModel>(_productRepository.GetById(id));
+            ProductViewModel product = _mapper.Map<ProductViewModel>(_productRepository.GetById(id));
+            if(product != null)
+            {
+                return product;
+            }
+            else
+            {
+                throw new Exception("Product with that id does not exist!");
+            }
         }
 
         public int RemoveProduct(int id)
