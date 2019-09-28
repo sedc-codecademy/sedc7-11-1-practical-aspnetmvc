@@ -73,7 +73,7 @@
                         <a asp-controller="Orders" asp-action="DeclineOrder" asp-route-orderId="@o.Id">Decline</a>
                     </td>
                 }
-                @if (o.Status == StatusTypeViewModel.Confirmed)
+                @if (o.Status == StatusTypeViewModel.Paid)
                 {
                     <td>
                         <a asp-controller="Orders" asp-action="MarkAsDelivered" asp-route-orderId="@o.Id">Mark as delivered</a>
