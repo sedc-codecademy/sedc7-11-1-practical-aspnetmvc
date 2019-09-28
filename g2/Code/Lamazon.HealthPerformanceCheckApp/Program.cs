@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Threading;
 
-namespace HealthPerformanceCheck
+namespace Lamazon.HealthPerformanceCheckApp
 {
     class Program
     {
