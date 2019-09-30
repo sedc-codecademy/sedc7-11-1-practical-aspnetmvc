@@ -1,0 +1,93 @@
+﻿@model RegisterViewModel
+
+<h1>Register</h1>
+
+<form asp-controller="users" asp-action="register" method="post">
+    <div class="row">
+        <div class="col-md-2"></div>
+
+        @*username*@
+        <div class="col-md-2">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-console" aria-hidden="true"></span></span>
+
+                <input asp-for="Username"
+                       type="text" class="form-control"
+                       placeholder="Username"
+                       aria-describedby="basic-addon1">
+            </div>
+        </div>
+
+        @*first name*@
+        <div class="col-md-2">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-console" aria-hidden="true"></span></span>
+
+                <input asp-for="FirstName"
+                       type="text" class="form-control"
+                       placeholder="First Name"
+                       aria-describedby="basic-addon1">
+            </div>
+        </div>
+
+        @*last name*@
+        <div class="col-md-2">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></span>
+
+                <input asp-for="LastName"
+                       type="text" class="form-control"
+                       placeholder="Last Name"
+                       aria-describedby="basic-addon1">
+            </div>
+        </div>
+
+        <div class="col-md-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+
+        @*password*@
+        <div class="col-md-2">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-console" aria-hidden="true"></span></span>
+
+                <input asp-for="Password"
+                       type="password" class="form-control"
+                       placeholder="Password"
+                       aria-describedby="basic-addon1">
+            </div>
+        </div>
+
+        @*confirm password*@
+        <div class="col-md-2">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-console" aria-hidden="true"></span></span>
+
+                <input asp-for="ConfirmPassword"
+                       type="password" class="form-control"
+                       placeholder="Confirm Password"
+                       aria-describedby="basic-addon1">
+            </div>
+        </div>
+
+        @*email*@
+        <div class="col-md-2">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></span>
+
+                <input asp-for="Email"
+                       type="email" class="form-control"
+                       placeholder="Email"
+                       aria-describedby="basic-addon1">
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-success">Register</button>
+        </div>
+    </div>
+</form>
+
+<h3>Already have an account? <a asp-controller="users" asp-action="login">Log In</a></h3>
