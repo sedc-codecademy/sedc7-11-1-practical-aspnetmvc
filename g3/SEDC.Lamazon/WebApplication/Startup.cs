@@ -48,7 +48,10 @@ namespace WebApplication
             {
             });
 
+            //register services
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IProductService, ProductService>();
 
             // Register automapper
             services.AddAutoMapper();
