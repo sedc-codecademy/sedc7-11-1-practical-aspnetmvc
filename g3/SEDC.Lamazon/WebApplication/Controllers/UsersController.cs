@@ -29,7 +29,7 @@ namespace WebApplication.Controllers
         public IActionResult LogIn(LoginViewModel model)
         {
             _userService.Login(model);
-            return RedirectToAction("index", "orders");
+            return RedirectToAction("index", "Home");
         }
 
         [HttpGet]

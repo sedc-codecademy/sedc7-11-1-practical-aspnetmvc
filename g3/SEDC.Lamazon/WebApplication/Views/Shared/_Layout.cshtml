@@ -29,19 +29,28 @@
                 <img src="~/images/lamazon.svg" alt="lamazon logo" height="50"/>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                       
-                    <li><a asp-area="" asp-controller="Products" asp-action="ListProducts">Products</a></li>
-                    <li><a asp-area="" asp-controller="Orders" asp-action="ListUserOrders">Orders</a></li>
-                       
+                <ul class="nav navbar-nav navigation">
+                    @if (User.IsInRole("admin"))
+                    {
+                        <li><a asp-action="ListAllOrders" asp-controller="Order">Order List</a></li>
+                    }
+                    else
+                    {
+                        if (User.Identity.IsAuthenticated)
+                        {
+                            <li><a asp-action="Index" asp-controller="Order">Products</a></li>
+                            <li><a asp-action="Order" asp-controller="Order">Current Order</a></li>
+                            <li><a asp-action="ListOrders" asp-controller="Order">List Orders</a></li>
 
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                   
-                    <li><a asp-controller="Users" asp-action="Logout">Logout</a></li>
-                    
-                    <li><a asp-controller="Users" asp-action="Login">Login</a></li>
-                    
+                            <li class="align-right"><a asp-action="LogOut" asp-controller="Users">Logout</a></li>
+                            <li class="align-right"><a asp-action="Index" asp-controller="Home">Welcome @User.Identity.Name</a></li>
+                        }
+                        else
+                        {
+                            <li class="align-right"><a asp-action="Register" asp-controller="Users">Register</a></li>
+                            <li class="align-right"><a asp-action="LogIn" asp-controller="Users">Login</a></li>
+                        }
+                    }
                 </ul>
             </div>
         </div>
