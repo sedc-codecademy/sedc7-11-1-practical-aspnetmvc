@@ -1,0 +1,21 @@
+﻿@model List<ProductViewModel>
+
+<h1>Products</h1>
+<div class="products">
+    @foreach(var product in Model)
+    {
+    <div class="thumbnail">
+        <img class="product-image" 
+             src="~/images/Products/product-@(product.Id).png"
+             alt="..."/>
+        <div class="caption">
+            <input asp-for="@product.Id" type="hidden" />
+            <h3>@product.Name</h3>
+            <h5>@product.Price $</h5>
+            <p>@product.Description</p>
+        </div>
+    </div>
+    }
+</div>
+
+

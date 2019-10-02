@@ -38,9 +38,9 @@
                     {
                         if (User.Identity.IsAuthenticated)
                         {
-                            <li><a asp-action="Index" asp-controller="Order">Products</a></li>
-                            <li><a asp-action="Order" asp-controller="Order">Current Order</a></li>
-                            <li><a asp-action="ListOrders" asp-controller="Order">List Orders</a></li>
+                            <li><a asp-action="Index" asp-controller="Orders">Products</a></li>
+                            <li><a asp-action="Order" asp-controller="Orders">Current Order</a></li>
+                            <li><a asp-action="ListOrders" asp-controller="Orders">List Orders</a></li>
 
                             <li class="align-right"><a asp-action="LogOut" asp-controller="Users">Logout</a></li>
                             <li class="align-right"><a asp-action="Index" asp-controller="Home">Welcome @User.Identity.Name</a></li>
