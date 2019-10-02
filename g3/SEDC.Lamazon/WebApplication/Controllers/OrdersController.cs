@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
+using WebModels.Enumerations;
 using WebModels.ViewModels;
 
 namespace WebApplication.Controllers
@@ -64,6 +65,15 @@ namespace WebApplication.Controllers
             {
                 return BadRequest();
             }
+        }
+
+        [HttpPost]
+        public IActionResult ChangeStatus(int id, int statusId)
+        {
+            UserViewModel user = _userService.GetCurrentUser(User.Identity.Name);
+            //List<OrderViewModel> orders = _orderService.GetAll(user.Id).ToList();
+            _orderService.ChangeStatus(id, user.Id, (OrderStatusViewType)statusId);
+            return RedirectToAction("Index");
         }
 
 

@@ -1,0 +1,32 @@
+﻿@model OrderViewModel
+
+<h1>Order</h1>
+<div class="row">
+    <div class="col-md-12">
+        <label asp-for="User.FullName"></label>
+        <p>@Model.User.FullName</p>
+
+
+        <label asp-for="Id"></label>
+        <p>@Model.Id</p>
+
+
+        <label asp-for="Status"></label>
+        <p>@Model.Status</p>
+
+
+        <label asp-for="Price"></label>
+        <p>@Model.Price</p>
+    </div>
+    <div class="col-md-12">
+        <label asp-for="Products" ></label>
+        <ul>
+            @foreach (var product in Model.Products)
+            {
+                <li>@product.Name : @product.Price</li>
+            }
+        </ul>
+        <a asp-controller="Orders" 
+           asp-action="ChangeStatus" >Confirm</a>
+    </div>
+</div>

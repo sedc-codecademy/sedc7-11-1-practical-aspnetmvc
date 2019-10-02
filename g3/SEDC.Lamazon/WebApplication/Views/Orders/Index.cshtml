@@ -13,9 +13,25 @@
             <h3>@product.Name</h3>
             <h5>@product.Price $</h5>
             <p>@product.Description</p>
+            <p><button value="@product.Id" 
+                       class="btn btn-primary productItem"
+                       role="button">Buy</button></p>
         </div>
     </div>
     }
 </div>
 
+<script>
+    let products = document.getElementsByClassName("products")[0];
+    products.addEventListener("click", function (event) {
+        event.stopPropagation();
+        let target = event.target;
+        let targetId = target.classList.contains("productItem")
+            ? target.value
+            : null;
+        if (targetId != null) {
+            fetch("/orders/addProduct/" + targetId, { method: "Post" });
+        }
+    })
+</script>
 
