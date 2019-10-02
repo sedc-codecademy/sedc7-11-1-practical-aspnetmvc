@@ -19,14 +19,21 @@
         <p>@Model.Price</p>
     </div>
     <div class="col-md-12">
-        <label asp-for="Products" ></label>
+        <label asp-for="Products"></label>
         <ul>
             @foreach (var product in Model.Products)
             {
                 <li>@product.Name : @product.Price</li>
             }
         </ul>
-        <a asp-controller="Orders" 
-           asp-action="ChangeStatus" >Confirm</a>
+
+        @if (Model.Status == OrderStatusViewType.Init)
+        {
+            <a asp-controller="Orders"
+               asp-action="ChangeStatus"
+               asp-route-id="@Model.Id"
+               asp-route-statusId="1"
+               class="btn btn-success">Confirm</a>
+        }
     </div>
 </div>

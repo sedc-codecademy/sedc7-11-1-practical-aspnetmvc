@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 using WebModels.Enumerations;
@@ -25,6 +26,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "user")]
         public IActionResult Index()
         {
             var products = _productService.GetAll();
@@ -32,6 +34,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "user")]
         public IActionResult Order()
         {
             var loggedUser = User.Identity.Name;
@@ -41,6 +44,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public IActionResult OrderDetails(int id)
         {
             var loggedUser = User.Identity.Name;
@@ -50,6 +54,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "user")]
         public IActionResult AddProduct(int id)
         {
             var loggedUser = User.Identity.Name;
@@ -67,8 +72,9 @@ namespace WebApplication.Controllers
             }
         }
 
-        [HttpPost]
-        public IActionResult ChangeStatus(int id, int statusId)
+        [HttpGet]
+        [Authorize(Roles = "user")]
+        public IActionResult ChangeStatus(int id, [FromQuery]int statusId)
         {
             UserViewModel user = _userService.GetCurrentUser(User.Identity.Name);
             //List<OrderViewModel> orders = _orderService.GetAll(user.Id).ToList();
@@ -76,6 +82,13 @@ namespace WebApplication.Controllers
             return RedirectToAction("Index");
         }
 
-
+        [HttpGet]
+        [Authorize(Roles = "user")]
+        public IActionResult ListOrders()
+        {
+            UserViewModel user = _userService.GetCurrentUser(User.Identity.Name);
+            List<OrderViewModel> orders = _orderService.GetAll(user.Id).ToList();
+            return View(orders);
+        }
     }
 }
