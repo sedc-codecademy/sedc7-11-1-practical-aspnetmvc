@@ -22,12 +22,19 @@ namespace Lamazon.WebApp.Controllers
             _userService = userService;
         }
 
+        [Authorize(Roles = "customer, supplier, admin")]
+        public IActionResult OrderDetails(int orderId)
+        {
+            return View(_orderService.GetOrderById(orderId));
+        }
+
         [Authorize(Roles = "customer")]
         public IActionResult ListUserOrders()
         {
             UserViewModel user = _userService.GetCurrentUser(User.Identity.Name);
 
             ViewBag.UserOption = UserOptions.Customer;
+            ViewBag.WebAppBaseUrl = $"{Request.Scheme}://{Request.Host.Value}";
             return View("Index", _orderService.GetUserOrders(user.Id));
         }
 
@@ -51,7 +58,7 @@ namespace Lamazon.WebApp.Controllers
         public IActionResult ListAllOrders()
         {
             ViewBag.UserOption = UserOptions.Supplier;
-
+            ViewBag.WebAppBaseUrl = $"{Request.Scheme}://{Request.Host.Value}";
             return View("Index", _orderService.GetAllOrders());
         }
 

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Lamazon.DataAccess.Migrations
 {
-    public partial class init : Migration
+    public partial class invoice : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -242,9 +242,9 @@ namespace Lamazon.DataAccess.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "720299e9-0865-4039-b628-33f95347ac4b", "96b8cae5-a9f2-4674-8c51-d6558e3d8dd4", "admin", "ADMIN" },
-                    { "8b278d8a-0eab-4216-8cb9-aa4ad43d14a6", "85218eae-a07f-453c-a6d3-d9c1f7f5c368", "supplier", "SUPPLIER" },
-                    { "585b51cc-31d6-4166-bc06-37c6a63dbbc9", "cf3c19f9-d55c-4d26-8b60-e2c485a323de", "customer", "CUSTOMER" }
+                    { "5eddfa9a-423c-4313-8ae0-b022b7f0fdab", "4108ed98-eaca-4cb4-aad9-e5b2cf762af5", "admin", "ADMIN" },
+                    { "3f3ddc40-1d77-4c46-acdc-32f813a416a8", "16f960e4-4992-4d83-8da5-de8c55b8757d", "supplier", "SUPPLIER" },
+                    { "bcb45300-9ba5-4bfe-9b17-5e058bf4912e", "2f26a309-c3d1-49a2-a226-8bb2ca3e3262", "customer", "CUSTOMER" }
                 });
 
             migrationBuilder.InsertData(
@@ -252,10 +252,10 @@ namespace Lamazon.DataAccess.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "aeace729-b0c4-47f6-821a-7a3244870edb", 0, "83f586df-0ef8-4469-b490-62d6c7265dbe", "sa@sa.com", true, "System Admin", false, null, "SA@SA.COM", "SA", "AQAAAAEAACcQAAAAELHUJVzReqXy3GqiKCe0s6THhQO24waL/99bEYYOBJuhZ8xwtfkRisunhKTIbuVTXA==", null, false, "", false, "sa" },
-                    { "519e9457-542a-47bf-b142-8e16ebd9763a", 0, "0efcaa29-f53a-4460-8ed1-32ca2d83aab5", "stojanche.m@mail.com", true, "Stojanche Mitrevski", false, null, "STOJANCHE.M@MAIL.COM", "STOJANCHE.M", "AQAAAAEAACcQAAAAEJLIv01xdJa1jVfAmD5o6D7GTkSfC1DlEJvv0/oH/Ru7TKN7TnRXOM/pRo8AHROaww==", null, false, "", false, "stojanche.m" },
-                    { "8cf31eaa-2096-4ccb-9a52-39c9bf707422", 0, "b07a33cc-6a91-483e-a113-0ac641dc57aa", "dejan.blazheski@mail.com", true, "Dejan Blazheski", false, null, "DEJAN.BLAZHESKI@MAIL.COM", "DEJAN.BLAZHESKI", "AQAAAAEAACcQAAAAELJEEgSt7+FP+v1kYj+sVIVR+107TyAPfyCMqMa7GFaHzfS/GA4E6S15n42vUxRqyw==", null, false, "", false, "dejan.blazheski" },
-                    { "f1680e6e-662f-4d1e-bc68-75b121e48fe0", 0, "e8efca90-ce90-4cd6-be8a-a01411063e92", "dejan.jovanov@mail.com", true, "Dejan Jovanov", false, null, "DEJAN.JOVANOV@MAIL.COM", "DEJAN.JOVANOV", "AQAAAAEAACcQAAAAEOVoYVw7sNNXeuVskel7bAnFyAUp45V+70+tAj3hib3PiWZnP6njjZrFXjyMRo1c8w==", null, false, "", false, "dejan.jovanov" }
+                    { "0d95131c-f812-4692-897c-902690c310fe", 0, "781c6997-5d13-4f26-b18c-653d826099e5", "sa@sa.com", true, "System Admin", false, null, "SA@SA.COM", "SA", "AQAAAAEAACcQAAAAEC3YPAoCmTi0+ZZMGGxVsTBhRIGf5NRRnekGDl7Gg1+zEABCMfAHxHO6qeOdaCRSoA==", null, false, "", false, "sa" },
+                    { "a665e25c-c16b-487e-ab6c-105b9c1fafc1", 0, "d326c1f0-6ef6-436d-9170-de463589e964", "stojanche.m@mail.com", true, "Stojanche Mitrevski", false, null, "STOJANCHE.M@MAIL.COM", "STOJANCHE.M", "AQAAAAEAACcQAAAAEAgdrBs6cy3LKkZFyVbX/6cFZBB/pzK54nzvgoTzzQkO7j/4O5yrqaSm7+JusITKKA==", null, false, "", false, "stojanche.m" },
+                    { "ba0be5ee-527b-4ebf-b1f8-97bc743f401e", 0, "43e18694-13b5-46f4-88fb-4e10b5c4be13", "dejan.blazheski@mail.com", true, "Dejan Blazheski", false, null, "DEJAN.BLAZHESKI@MAIL.COM", "DEJAN.BLAZHESKI", "AQAAAAEAACcQAAAAEElmjTc47W1aupQBSn+NDO4rZtB3e4btZwN2WCRzwdw4cbR3vRisUHByNXXTF+Ajfw==", null, false, "", false, "dejan.blazheski" },
+                    { "da45d21e-68ac-4708-9405-30cf704d6ffd", 0, "d5860679-1602-415c-8b9a-8fe5e8d8f62a", "dejan.jovanov@mail.com", true, "Dejan Jovanov", false, null, "DEJAN.JOVANOV@MAIL.COM", "DEJAN.JOVANOV", "AQAAAAEAACcQAAAAEOI8h1EgwhUvLTo8EiOKu13c/oudefMmuuJ+eDIC2xac7wbYy3p+tQvcvXccWxrQ6Q==", null, false, "", false, "dejan.jovanov" }
                 });
 
             migrationBuilder.InsertData(
@@ -276,10 +276,10 @@ namespace Lamazon.DataAccess.Migrations
                 columns: new[] { "UserId", "RoleId" },
                 values: new object[,]
                 {
-                    { "aeace729-b0c4-47f6-821a-7a3244870edb", "720299e9-0865-4039-b628-33f95347ac4b" },
-                    { "519e9457-542a-47bf-b142-8e16ebd9763a", "8b278d8a-0eab-4216-8cb9-aa4ad43d14a6" },
-                    { "8cf31eaa-2096-4ccb-9a52-39c9bf707422", "585b51cc-31d6-4166-bc06-37c6a63dbbc9" },
-                    { "f1680e6e-662f-4d1e-bc68-75b121e48fe0", "585b51cc-31d6-4166-bc06-37c6a63dbbc9" }
+                    { "0d95131c-f812-4692-897c-902690c310fe", "5eddfa9a-423c-4313-8ae0-b022b7f0fdab" },
+                    { "a665e25c-c16b-487e-ab6c-105b9c1fafc1", "3f3ddc40-1d77-4c46-acdc-32f813a416a8" },
+                    { "ba0be5ee-527b-4ebf-b1f8-97bc743f401e", "bcb45300-9ba5-4bfe-9b17-5e058bf4912e" },
+                    { "da45d21e-68ac-4708-9405-30cf704d6ffd", "bcb45300-9ba5-4bfe-9b17-5e058bf4912e" }
                 });
 
             migrationBuilder.InsertData(
@@ -287,9 +287,9 @@ namespace Lamazon.DataAccess.Migrations
                 columns: new[] { "Id", "DateCreated", "Status", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2019, 9, 30, 14, 5, 52, 117, DateTimeKind.Utc), 0, "8cf31eaa-2096-4ccb-9a52-39c9bf707422" },
-                    { 2, new DateTime(2019, 9, 30, 14, 5, 52, 118, DateTimeKind.Utc), 2, "8cf31eaa-2096-4ccb-9a52-39c9bf707422" },
-                    { 3, new DateTime(2019, 9, 30, 14, 5, 52, 118, DateTimeKind.Utc), 1, "f1680e6e-662f-4d1e-bc68-75b121e48fe0" }
+                    { 1, new DateTime(2019, 10, 3, 12, 24, 46, 64, DateTimeKind.Utc), 0, "ba0be5ee-527b-4ebf-b1f8-97bc743f401e" },
+                    { 2, new DateTime(2019, 10, 3, 12, 24, 46, 64, DateTimeKind.Utc), 2, "ba0be5ee-527b-4ebf-b1f8-97bc743f401e" },
+                    { 3, new DateTime(2019, 10, 3, 12, 24, 46, 64, DateTimeKind.Utc), 1, "da45d21e-68ac-4708-9405-30cf704d6ffd" }
                 });
 
             migrationBuilder.InsertData(

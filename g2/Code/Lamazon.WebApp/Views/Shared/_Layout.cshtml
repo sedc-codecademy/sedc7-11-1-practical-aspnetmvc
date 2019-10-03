@@ -31,7 +31,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Products" asp-action="Index" class="navbar-brand">Lamazon</a>
+                <img src="~/images/lamazon.svg" alt="Lamazon" height="50" />
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -41,6 +41,7 @@
                         {
                             if (IsAdmin)
                             {
+                                <li><a asp-controller="Users" asp-action="ListUsers">Administration</a></li>
                                 <li><a asp-area="" asp-controller="Products" asp-action="ListProducts">Products</a></li>
                             }
                             <li><a asp-area="" asp-controller="Orders" asp-action="ListAllOrders">Orders</a></li>
@@ -62,13 +63,12 @@
                     else
                     {
                         <li><a asp-controller="Users" asp-action="Login">Login</a></li>
+                        <li><a asp-controller="Users" asp-action="Register">Register</a></li>
                     }
                 </ul>
             </div>
         </div>
     </nav>
-
-    <partial name="_CookieConsentPartial" />
 
     <div class="container body-content">
         @RenderBody()

@@ -42,7 +42,16 @@ namespace Lamazon.WebApp.Controllers
         {
             InvoiceViewModel invoice = _invoiceService.GetInvoice(orderId);
 
-            return JsonConvert.SerializeObject(invoice);
+            var invoiceJs = new
+            {
+                invoice.Id,
+                PaymentMethod = Enum.GetName(typeof(PaymentTypeViewModel), invoice.PaymentMethod),
+                invoice.Address,
+                invoice.Price,
+                invoice.OrderId
+            };
+
+            return JsonConvert.SerializeObject(invoiceJs);
         }
     }
 }

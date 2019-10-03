@@ -11,6 +11,6 @@ namespace Lamazon.Services.Interfaces
         void Login(LoginViewModel loginModel);
         void Logout();
         UserViewModel GetCurrentUser(string username);
-        string GetUserRole(string username);
+        IEnumerable<UserViewModel> GetAllUsers();
     }
 }

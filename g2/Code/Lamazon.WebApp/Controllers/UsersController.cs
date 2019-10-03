@@ -58,5 +58,11 @@ namespace Lamazon.WebApp.Controllers
             _userService.Logout();
             return RedirectToAction("Login", "Users");
         }
+
+        [Authorize(Roles = "admin")]
+        public IActionResult ListUsers()
+        {
+            return View(_userService.GetAllUsers());
+        }
     }
 }

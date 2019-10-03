@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lamazon.DataAccess.Migrations
 {
     [DbContext(typeof(LamazonDbContext))]
-    [Migration("20190930140552_init")]
-    partial class init
+    [Migration("20191003122446_invoice")]
+    partial class invoice
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -64,9 +64,9 @@ namespace Lamazon.DataAccess.Migrations
                     b.ToTable("Orders");
 
                     b.HasData(
-                        new { Id = 1, DateCreated = new DateTime(2019, 9, 30, 14, 5, 52, 117, DateTimeKind.Utc), Status = 0, UserId = "8cf31eaa-2096-4ccb-9a52-39c9bf707422" },
-                        new { Id = 2, DateCreated = new DateTime(2019, 9, 30, 14, 5, 52, 118, DateTimeKind.Utc), Status = 2, UserId = "8cf31eaa-2096-4ccb-9a52-39c9bf707422" },
-                        new { Id = 3, DateCreated = new DateTime(2019, 9, 30, 14, 5, 52, 118, DateTimeKind.Utc), Status = 1, UserId = "f1680e6e-662f-4d1e-bc68-75b121e48fe0" }
+                        new { Id = 1, DateCreated = new DateTime(2019, 10, 3, 12, 24, 46, 64, DateTimeKind.Utc), Status = 0, UserId = "ba0be5ee-527b-4ebf-b1f8-97bc743f401e" },
+                        new { Id = 2, DateCreated = new DateTime(2019, 10, 3, 12, 24, 46, 64, DateTimeKind.Utc), Status = 2, UserId = "ba0be5ee-527b-4ebf-b1f8-97bc743f401e" },
+                        new { Id = 3, DateCreated = new DateTime(2019, 10, 3, 12, 24, 46, 64, DateTimeKind.Utc), Status = 1, UserId = "da45d21e-68ac-4708-9405-30cf704d6ffd" }
                     );
                 });
 
@@ -176,10 +176,10 @@ namespace Lamazon.DataAccess.Migrations
                     b.ToTable("AspNetUsers");
 
                     b.HasData(
-                        new { Id = "aeace729-b0c4-47f6-821a-7a3244870edb", AccessFailedCount = 0, ConcurrencyStamp = "83f586df-0ef8-4469-b490-62d6c7265dbe", Email = "sa@sa.com", EmailConfirmed = true, FullName = "System Admin", LockoutEnabled = false, NormalizedEmail = "SA@SA.COM", NormalizedUserName = "SA", PasswordHash = "AQAAAAEAACcQAAAAELHUJVzReqXy3GqiKCe0s6THhQO24waL/99bEYYOBJuhZ8xwtfkRisunhKTIbuVTXA==", PhoneNumberConfirmed = false, SecurityStamp = "", TwoFactorEnabled = false, UserName = "sa" },
-                        new { Id = "519e9457-542a-47bf-b142-8e16ebd9763a", AccessFailedCount = 0, ConcurrencyStamp = "0efcaa29-f53a-4460-8ed1-32ca2d83aab5", Email = "stojanche.m@mail.com", EmailConfirmed = true, FullName = "Stojanche Mitrevski", LockoutEnabled = false, NormalizedEmail = "STOJANCHE.M@MAIL.COM", NormalizedUserName = "STOJANCHE.M", PasswordHash = "AQAAAAEAACcQAAAAEJLIv01xdJa1jVfAmD5o6D7GTkSfC1DlEJvv0/oH/Ru7TKN7TnRXOM/pRo8AHROaww==", PhoneNumberConfirmed = false, SecurityStamp = "", TwoFactorEnabled = false, UserName = "stojanche.m" },
-                        new { Id = "8cf31eaa-2096-4ccb-9a52-39c9bf707422", AccessFailedCount = 0, ConcurrencyStamp = "b07a33cc-6a91-483e-a113-0ac641dc57aa", Email = "dejan.blazheski@mail.com", EmailConfirmed = true, FullName = "Dejan Blazheski", LockoutEnabled = false, NormalizedEmail = "DEJAN.BLAZHESKI@MAIL.COM", NormalizedUserName = "DEJAN.BLAZHESKI", PasswordHash = "AQAAAAEAACcQAAAAELJEEgSt7+FP+v1kYj+sVIVR+107TyAPfyCMqMa7GFaHzfS/GA4E6S15n42vUxRqyw==", PhoneNumberConfirmed = false, SecurityStamp = "", TwoFactorEnabled = false, UserName = "dejan.blazheski" },
-                        new { Id = "f1680e6e-662f-4d1e-bc68-75b121e48fe0", AccessFailedCount = 0, ConcurrencyStamp = "e8efca90-ce90-4cd6-be8a-a01411063e92", Email = "dejan.jovanov@mail.com", EmailConfirmed = true, FullName = "Dejan Jovanov", LockoutEnabled = false, NormalizedEmail = "DEJAN.JOVANOV@MAIL.COM", NormalizedUserName = "DEJAN.JOVANOV", PasswordHash = "AQAAAAEAACcQAAAAEOVoYVw7sNNXeuVskel7bAnFyAUp45V+70+tAj3hib3PiWZnP6njjZrFXjyMRo1c8w==", PhoneNumberConfirmed = false, SecurityStamp = "", TwoFactorEnabled = false, UserName = "dejan.jovanov" }
+                        new { Id = "0d95131c-f812-4692-897c-902690c310fe", AccessFailedCount = 0, ConcurrencyStamp = "781c6997-5d13-4f26-b18c-653d826099e5", Email = "sa@sa.com", EmailConfirmed = true, FullName = "System Admin", LockoutEnabled = false, NormalizedEmail = "SA@SA.COM", NormalizedUserName = "SA", PasswordHash = "AQAAAAEAACcQAAAAEC3YPAoCmTi0+ZZMGGxVsTBhRIGf5NRRnekGDl7Gg1+zEABCMfAHxHO6qeOdaCRSoA==", PhoneNumberConfirmed = false, SecurityStamp = "", TwoFactorEnabled = false, UserName = "sa" },
+                        new { Id = "a665e25c-c16b-487e-ab6c-105b9c1fafc1", AccessFailedCount = 0, ConcurrencyStamp = "d326c1f0-6ef6-436d-9170-de463589e964", Email = "stojanche.m@mail.com", EmailConfirmed = true, FullName = "Stojanche Mitrevski", LockoutEnabled = false, NormalizedEmail = "STOJANCHE.M@MAIL.COM", NormalizedUserName = "STOJANCHE.M", PasswordHash = "AQAAAAEAACcQAAAAEAgdrBs6cy3LKkZFyVbX/6cFZBB/pzK54nzvgoTzzQkO7j/4O5yrqaSm7+JusITKKA==", PhoneNumberConfirmed = false, SecurityStamp = "", TwoFactorEnabled = false, UserName = "stojanche.m" },
+                        new { Id = "ba0be5ee-527b-4ebf-b1f8-97bc743f401e", AccessFailedCount = 0, ConcurrencyStamp = "43e18694-13b5-46f4-88fb-4e10b5c4be13", Email = "dejan.blazheski@mail.com", EmailConfirmed = true, FullName = "Dejan Blazheski", LockoutEnabled = false, NormalizedEmail = "DEJAN.BLAZHESKI@MAIL.COM", NormalizedUserName = "DEJAN.BLAZHESKI", PasswordHash = "AQAAAAEAACcQAAAAEElmjTc47W1aupQBSn+NDO4rZtB3e4btZwN2WCRzwdw4cbR3vRisUHByNXXTF+Ajfw==", PhoneNumberConfirmed = false, SecurityStamp = "", TwoFactorEnabled = false, UserName = "dejan.blazheski" },
+                        new { Id = "da45d21e-68ac-4708-9405-30cf704d6ffd", AccessFailedCount = 0, ConcurrencyStamp = "d5860679-1602-415c-8b9a-8fe5e8d8f62a", Email = "dejan.jovanov@mail.com", EmailConfirmed = true, FullName = "Dejan Jovanov", LockoutEnabled = false, NormalizedEmail = "DEJAN.JOVANOV@MAIL.COM", NormalizedUserName = "DEJAN.JOVANOV", PasswordHash = "AQAAAAEAACcQAAAAEOI8h1EgwhUvLTo8EiOKu13c/oudefMmuuJ+eDIC2xac7wbYy3p+tQvcvXccWxrQ6Q==", PhoneNumberConfirmed = false, SecurityStamp = "", TwoFactorEnabled = false, UserName = "dejan.jovanov" }
                     );
                 });
 
@@ -207,9 +207,9 @@ namespace Lamazon.DataAccess.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-                        new { Id = "720299e9-0865-4039-b628-33f95347ac4b", ConcurrencyStamp = "96b8cae5-a9f2-4674-8c51-d6558e3d8dd4", Name = "admin", NormalizedName = "ADMIN" },
-                        new { Id = "8b278d8a-0eab-4216-8cb9-aa4ad43d14a6", ConcurrencyStamp = "85218eae-a07f-453c-a6d3-d9c1f7f5c368", Name = "supplier", NormalizedName = "SUPPLIER" },
-                        new { Id = "585b51cc-31d6-4166-bc06-37c6a63dbbc9", ConcurrencyStamp = "cf3c19f9-d55c-4d26-8b60-e2c485a323de", Name = "customer", NormalizedName = "CUSTOMER" }
+                        new { Id = "5eddfa9a-423c-4313-8ae0-b022b7f0fdab", ConcurrencyStamp = "4108ed98-eaca-4cb4-aad9-e5b2cf762af5", Name = "admin", NormalizedName = "ADMIN" },
+                        new { Id = "3f3ddc40-1d77-4c46-acdc-32f813a416a8", ConcurrencyStamp = "16f960e4-4992-4d83-8da5-de8c55b8757d", Name = "supplier", NormalizedName = "SUPPLIER" },
+                        new { Id = "bcb45300-9ba5-4bfe-9b17-5e058bf4912e", ConcurrencyStamp = "2f26a309-c3d1-49a2-a226-8bb2ca3e3262", Name = "customer", NormalizedName = "CUSTOMER" }
                     );
                 });
 
@@ -284,10 +284,10 @@ namespace Lamazon.DataAccess.Migrations
                     b.ToTable("AspNetUserRoles");
 
                     b.HasData(
-                        new { UserId = "aeace729-b0c4-47f6-821a-7a3244870edb", RoleId = "720299e9-0865-4039-b628-33f95347ac4b" },
-                        new { UserId = "519e9457-542a-47bf-b142-8e16ebd9763a", RoleId = "8b278d8a-0eab-4216-8cb9-aa4ad43d14a6" },
-                        new { UserId = "8cf31eaa-2096-4ccb-9a52-39c9bf707422", RoleId = "585b51cc-31d6-4166-bc06-37c6a63dbbc9" },
-                        new { UserId = "f1680e6e-662f-4d1e-bc68-75b121e48fe0", RoleId = "585b51cc-31d6-4166-bc06-37c6a63dbbc9" }
+                        new { UserId = "0d95131c-f812-4692-897c-902690c310fe", RoleId = "5eddfa9a-423c-4313-8ae0-b022b7f0fdab" },
+                        new { UserId = "a665e25c-c16b-487e-ab6c-105b9c1fafc1", RoleId = "3f3ddc40-1d77-4c46-acdc-32f813a416a8" },
+                        new { UserId = "ba0be5ee-527b-4ebf-b1f8-97bc743f401e", RoleId = "bcb45300-9ba5-4bfe-9b17-5e058bf4912e" },
+                        new { UserId = "da45d21e-68ac-4708-9405-30cf704d6ffd", RoleId = "bcb45300-9ba5-4bfe-9b17-5e058bf4912e" }
                     );
                 });
 

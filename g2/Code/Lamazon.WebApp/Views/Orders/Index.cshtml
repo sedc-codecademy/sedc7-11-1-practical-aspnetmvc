@@ -1,8 +1,9 @@
 ﻿@model IEnumerable<OrderViewModel>
 
 @{
-    ViewData["Title"] = "Order";
+    ViewData["Title"] = "Orders";
     //bool IsSupplier = User.IsInRole("supplier");
+
 }
 
 <h2>Orders</h2>
@@ -26,10 +27,7 @@
             <td>@o.Price$</td>
             <td>@o.User.FullName</td>
             <td>
-                @foreach (ProductViewModel p in o.Products)
-                {
-                    <span>@p.Name, </span>
-                }
+                <a class="btn btn-default" asp-controller="Orders" asp-action="OrderDetails" asp-route-orderId="@o.Id">Order Details</a>
             </td>
 
             @if (ViewBag.UserOption == UserOptions.Customer)
@@ -37,9 +35,8 @@
                 @if (o.Status == StatusTypeViewModel.Init)
                 {
                     <td>
-                        <a asp-controller="Orders" asp-action="FinishOrder" asp-route-orderId="@o.Id">Finish</a>
-                        /
-                        <a asp-controller="Orders" asp-action="CancelOrder" asp-route-orderId="@o.Id">Cancel</a>
+                        <a class="btn btn-primary" asp-controller="Orders" asp-action="FinishOrder" asp-route-orderId="@o.Id">Finish</a>
+                        <a class="btn btn-primary" asp-controller="Orders" asp-action="CancelOrder" asp-route-orderId="@o.Id">Cancel</a>
                     </td>
                 }
                 @if (o.Status == StatusTypeViewModel.Confirmed)
@@ -52,7 +49,7 @@
                         <partial name="PaymentPopup" model="new InvoiceViewModel()" view-data="ViewData" />
                     </td>
                 }
-                @if (o.Status == StatusTypeViewModel.Paid)
+                @if (o.Status == StatusTypeViewModel.Paid || o.Status == StatusTypeViewModel.Delivered)
                 {
                     ViewData["OrderId"] = o.Id;
                     string invoicePopupId = $"#invoicePopup{o.Id}";
@@ -68,15 +65,14 @@
                 @if (o.Status == StatusTypeViewModel.Processing)
                 {
                     <td>
-                        <a asp-controller="Orders" asp-action="ConfirmOrder" asp-route-orderId="@o.Id">Approve</a>
-                        /
-                        <a asp-controller="Orders" asp-action="DeclineOrder" asp-route-orderId="@o.Id">Decline</a>
+                        <a class="btn btn-primary" asp-controller="Orders" asp-action="ConfirmOrder" asp-route-orderId="@o.Id">Approve</a>
+                        <a class="btn btn-primary" asp-controller="Orders" asp-action="DeclineOrder" asp-route-orderId="@o.Id">Decline</a>
                     </td>
                 }
                 @if (o.Status == StatusTypeViewModel.Paid)
                 {
                     <td>
-                        <a asp-controller="Orders" asp-action="MarkAsDelivered" asp-route-orderId="@o.Id">Mark as delivered</a>
+                        <a class="btn btn-primary" asp-controller="Orders" asp-action="MarkAsDelivered" asp-route-orderId="@o.Id">Mark as delivered</a>
                     </td>
                 }
             }
@@ -88,7 +84,7 @@
 <script>
     function getInvoiceData(orderId) {
         console.log("live!")
-        fetch(`http://localhost:62019/Invoices/ShowInvoice?orderId=${orderId}`)
+        fetch(`@ViewBag.WebAppBaseUrl/Invoices/ShowInvoice?orderId=${orderId}`)
             .then(res => res.json())
             .then(data => {
 

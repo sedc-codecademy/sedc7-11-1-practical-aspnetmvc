@@ -12,7 +12,7 @@
     @foreach (var product in Model)
     {
         <div class="thumbnail">
-            <img class="product-image" src="~/images/banner@(product.Id).svg"/>
+            <img class="product-image" src="~/images/products/product-@(product.Id).png"/>
             <div class="caption">
                 <input asp-for="@product.Id" type="hidden" />
                 @*@Html.HiddenFor(x => product.Id);*@
