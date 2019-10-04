@@ -37,6 +37,7 @@ namespace WebApplication.Controllers
         [Authorize(Roles = "user")]
         public IActionResult Order()
         {
+            ViewData["TemplateName"] = "Current Order";
             var loggedUser = User.Identity.Name;
             UserViewModel user = _userService.GetCurrentUser(loggedUser);
             OrderViewModel currentOrder = _orderService.GetCurrentOrder(user.Id);
@@ -47,10 +48,12 @@ namespace WebApplication.Controllers
         [Authorize(Roles = "admin")]
         public IActionResult OrderDetails(int id, [FromQuery]string userId)
         {
+            ViewData["TemplateName"] = "Order Details";
+
             //var loggedUser = User.Identity.Name;
             //UserViewModel user = _userService.GetCurrentUser(loggedUser);
             var order = _orderService.GetById(id, userId);
-            return View(order);
+            return View("Order", order);
         }
 
         [HttpPost]
