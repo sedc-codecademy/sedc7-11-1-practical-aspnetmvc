@@ -45,11 +45,11 @@ namespace WebApplication.Controllers
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public IActionResult OrderDetails(int id)
+        public IActionResult OrderDetails(int id, [FromQuery]string userId)
         {
-            var loggedUser = User.Identity.Name;
-            UserViewModel user = _userService.GetCurrentUser(loggedUser);
-            var order = _orderService.GetById(id, user.Id);
+            //var loggedUser = User.Identity.Name;
+            //UserViewModel user = _userService.GetCurrentUser(loggedUser);
+            var order = _orderService.GetById(id, userId);
             return View(order);
         }
 
@@ -89,6 +89,27 @@ namespace WebApplication.Controllers
             UserViewModel user = _userService.GetCurrentUser(User.Identity.Name);
             List<OrderViewModel> orders = _orderService.GetAll(user.Id).ToList();
             return View(orders);
+        }
+        
+        [HttpGet]
+        [Authorize(Roles = "admin")]
+        public IActionResult ListAllOrders()
+        {
+            var orders = _orderService.GetAll().ToList();
+            return View(orders);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "admin")]
+        public IActionResult ConfirmOrder(int orderId)
+        {
+            var order = _orderService.GetById(orderId);
+            if(order == null)
+            {
+                RedirectToAction("index");
+            }
+            _orderService.ChangeStatus(order.Id, order.User.Id, OrderStatusViewType.Confirmed);
+            return RedirectToAction("ListAllOrders");
         }
     }
 }

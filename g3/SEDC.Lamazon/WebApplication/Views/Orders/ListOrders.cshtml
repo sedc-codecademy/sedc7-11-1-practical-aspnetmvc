@@ -12,7 +12,11 @@
         @if(order.Status == OrderStatusViewType.Processing)
         {
             <div class="col-md-2">
-                <a class="btn btn-primary">Approve</a>
+                <a asp-action="changestatus" 
+                    asp-controller="Orders" 
+                    asp-route-id="@order.Id"
+                    asp-route-statusId="2"
+                    class="btn btn-primary">Approve</a>
             </div>
         }
     </div>

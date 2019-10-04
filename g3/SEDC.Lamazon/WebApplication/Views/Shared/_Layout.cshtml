@@ -32,7 +32,10 @@
                 <ul class="nav navbar-nav navigation">
                     @if (User.IsInRole("admin"))
                     {
-                        <li><a asp-action="ListAllOrders" asp-controller="Order">Order List</a></li>
+                        <li><a asp-action="ListAllOrders" asp-controller="Orders">Order List</a></li>
+
+                        <li class="align-right"><a asp-action="LogOut" asp-controller="Users">Logout</a></li>
+                        <li class="align-right"><a asp-action="Index" asp-controller="Home">Welcome @User.Identity.Name</a></li>
                     }
                     else
                     {

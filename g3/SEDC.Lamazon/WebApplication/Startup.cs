@@ -53,7 +53,7 @@ namespace WebApplication
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
                 options.LoginPath = "/Users/Login";
-                options.AccessDeniedPath = "/Users/Login";
+                options.AccessDeniedPath = "/Home/";
                 options.SlidingExpiration = true;
             });
 

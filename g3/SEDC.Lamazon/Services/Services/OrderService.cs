@@ -53,7 +53,11 @@ namespace Services.Services
 
         public OrderViewModel GetById(int orderId, string userId)
         {
-            throw new System.NotImplementedException();
+            var order = _orderRepository
+                .GetAll()
+                .FirstOrDefault(x => x.Id == orderId && x.UserId == userId);
+
+            return _mapper.Map<OrderViewModel>(order);
         }
 
         public OrderViewModel GetCurrentOrder(string userId)
