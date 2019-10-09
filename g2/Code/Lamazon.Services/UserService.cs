@@ -92,14 +92,11 @@ namespace Lamazon.Services
             return _mapper.Map<UserViewModel>(user);
         }
 
-        public string GetUserRole(string username)
+        public IEnumerable<UserViewModel> GetAllUsers()
         {
-            User user = _userRepo.GetByUsername(username);
-            string role = _userManager
-                .GetRolesAsync(user).Result
-                .FirstOrDefault();
-
-            return role;
+            return _mapper.Map<IEnumerable<UserViewModel>>(
+                _userRepo.GetAll()
+            );
         }
     }
 }

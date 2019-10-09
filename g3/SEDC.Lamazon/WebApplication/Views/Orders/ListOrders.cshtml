@@ -1,0 +1,24 @@
+﻿@model List<OrderViewModel>
+
+<h2>ListOrders</h2>
+@foreach (var order in Model)
+{
+    <div class="row">
+        <div class="col-md-2">Id: @order.Id</div>
+        <div class="col-md-2">User: @order.User.Username</div>
+        <div class="col-md-2">Products: @order.Products.Count()</div>
+        <div class="col-md-2">Price: @order.Price</div>
+        <div class="col-md-2">@order.Status</div>
+        @if(order.Status == OrderStatusViewType.Processing)
+        {
+            <div class="col-md-2">
+                <a asp-action="changestatus" 
+                    asp-controller="Orders" 
+                    asp-route-id="@order.Id"
+                    asp-route-statusId="2"
+                    class="btn btn-primary">Approve</a>
+            </div>
+        }
+    </div>
+}
+

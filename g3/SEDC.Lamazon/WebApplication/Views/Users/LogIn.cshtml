@@ -1,0 +1,40 @@
+﻿@model LoginViewModel
+
+<h1>Welcome</h1>
+
+<form asp-controller="users" asp-action="login" method="post">
+    <div class="row">
+        <div class="col-md-2"></div>
+
+        @*username*@
+        <div class="col-md-4">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
+
+                <input asp-for="Username"
+                       type="text" class="form-control"
+                       placeholder="Username"
+                       aria-describedby="basic-addon1">
+            </div>
+        </div>
+
+        @*password*@
+        <div class="col-md-4">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-console" aria-hidden="true"></span></span>
+
+                <input asp-for="Password"
+                       type="password" class="form-control"
+                       placeholder="Password"
+                       aria-describedby="basic-addon1">
+            </div>
+        </div>
+
+        @*login button*@
+        <div class="col-md-2">
+            <button class="btn btn-success" type="submit">Log In</button>
+        </div>
+    </div>
+</form>
+
+<h3>New here? <a asp-controller="users" asp-action="register">Register</a></h3>

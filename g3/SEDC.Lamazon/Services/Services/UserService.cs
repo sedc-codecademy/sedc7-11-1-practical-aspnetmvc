@@ -49,7 +49,9 @@ namespace Services.Services
                     .GetAwaiter()
                     .GetResult();
 
-                _userManager.AddToRoleAsync(currentUser, "user");
+                _userManager.AddToRoleAsync(currentUser, "user")
+                    .GetAwaiter()
+                    .GetResult();
 
                 var loginUser = new LoginViewModel()
                 {

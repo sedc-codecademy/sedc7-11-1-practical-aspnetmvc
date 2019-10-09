@@ -13,7 +13,7 @@ namespace WebModels.ViewModels
         public InvoiceViewModel Invoice { get; set; }
         public IEnumerable<ProductViewModel> Products { get; set; }
 
-        public double Price => Products.Sum(x => 0);
+        public double Price => Products.Sum(x => x.Price);
 
         //public double Price1
         //{

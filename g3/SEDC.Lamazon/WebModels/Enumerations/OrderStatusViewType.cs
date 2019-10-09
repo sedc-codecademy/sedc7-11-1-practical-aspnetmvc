@@ -7,9 +7,9 @@ namespace WebModels.Enumerations
     public enum OrderStatusViewType
     {
         Init = 0,
-        Processing,
-        Confirmed,
-        Delivered,
-        Declined
+        Processing = 1,
+        Confirmed = 2,
+        Delivered = 3,
+        Declined = 4
     }
 }

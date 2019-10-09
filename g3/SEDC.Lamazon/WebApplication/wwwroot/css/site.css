@@ -28,10 +28,35 @@ body {
     margin: 15px;
 }
 
-/* Hide/rearrange for smaller screens */
+/*login/logout button to the right*/
+.align-right {
+    float: right !important;
+}
+
+.navigation {
+    width: 92%;
+}
+
+
 @media screen and (max-width: 767px) {
     /* Hide captions */
     .carousel-caption {
         display: none;
     }
+    /*login/logout button to the right responsive*/
+    .align-right {
+        float: none !important;
+    }
+}
+
+/*flex grid for products*/
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.product-image {
+    height: 300px !important;
+    width: 250px !important;
 }

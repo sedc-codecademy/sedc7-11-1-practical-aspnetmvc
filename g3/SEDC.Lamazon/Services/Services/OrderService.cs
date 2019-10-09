@@ -53,7 +53,11 @@ namespace Services.Services
 
         public OrderViewModel GetById(int orderId, string userId)
         {
-            throw new System.NotImplementedException();
+            var order = _orderRepository
+                .GetAll()
+                .FirstOrDefault(x => x.Id == orderId && x.UserId == userId);
+
+            return _mapper.Map<OrderViewModel>(order);
         }
 
         public OrderViewModel GetCurrentOrder(string userId)
@@ -81,19 +85,19 @@ namespace Services.Services
         public int ChangeStatus(int orderId, string userId, OrderStatusViewType status)
         {
             var order = _orderRepository.GetById(orderId);
-            //var user = _userRepository.GetById(userId);
+            var user = _userRepository.GetById(userId);
 
             order.Status = _mapper.Map<OrderStatusType>(status);
 
-            //if (status == OrderStatusViewType.Processing)
-            //{
-            //    _orderRepository.Insert(
-            //        new Order()
-            //        {
-            //            User = user,
-            //            Status = OrderStatusType.Init
-            //        });
-            //}
+            if (status == OrderStatusViewType.Processing)
+            {
+                _orderRepository.Insert(
+                    new Order()
+                    {
+                        User = user,
+                        Status = OrderStatusType.Init
+                    });
+            }
             return _orderRepository.Update(order);
         }
 

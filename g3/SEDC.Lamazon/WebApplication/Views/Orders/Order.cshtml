@@ -1,0 +1,40 @@
+﻿@model OrderViewModel
+
+<h1>@ViewData["TemplateName"]</h1>
+
+<div class="row">
+    <div class="col-md-12">
+        <label asp-for="User.FullName"></label>
+        <p>@Model.User.FullName</p>
+
+
+        <label asp-for="Id"></label>
+        <p>@Model.Id</p>
+
+
+        <label asp-for="Status"></label>
+        <p>@Model.Status</p>
+
+
+        <label asp-for="Price"></label>
+        <p>@Model.Price</p>
+    </div>
+    <div class="col-md-12">
+        <label asp-for="Products"></label>
+        <ul>
+            @foreach (var product in Model.Products)
+            {
+                <li>@product.Name : @product.Price</li>
+            }
+        </ul>
+
+        @if (Model.Status == OrderStatusViewType.Init)
+        {
+            <a asp-controller="Orders"
+               asp-action="ChangeStatus"
+               asp-route-id="@Model.Id"
+               asp-route-statusId="1"
+               class="btn btn-success">Confirm</a>
+        }
+    </div>
+</div>

@@ -48,7 +48,19 @@ namespace WebApplication
             {
             });
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                options.LoginPath = "/Users/Login";
+                options.AccessDeniedPath = "/Home/";
+                options.SlidingExpiration = true;
+            });
+
+            //register services
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IProductService, ProductService>();
 
             // Register automapper
             services.AddAutoMapper();
@@ -70,6 +82,7 @@ namespace WebApplication
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseAuthentication();    
 
             app.UseMvc(routes =>
             {
