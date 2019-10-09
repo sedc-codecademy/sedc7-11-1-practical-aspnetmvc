@@ -19,7 +19,8 @@ namespace SEDC.Lamazon.Services.Helpers
                 .ForMember(dest => dest.Products, src => src.MapFrom(x => x.ProductOrders.Select(y => y.Product)))
                 .ReverseMap()
                 .ForMember(dest => dest.ProductOrders, src => src.Ignore())
-                .ForMember(dest => dest.DateOfOrder, src => src.Ignore());
+                .ForMember(dest => dest.DateOfOrder, src => src.Ignore())
+                .ForMember(dest => dest.User, src => src.Ignore());
 
             CreateMap<Product, ProductViewModel>()
                 .ForMember(dest => dest.Category, src => src.MapFrom(x => x.Category))

@@ -10,6 +10,7 @@ namespace SEDC.Lamazon.WebModels_.ViewModels
         public int Id { get; set; }
         public string Address { get; set; }
         public PaymentTypeViewModel PaymentType { get; set; }
+        public int OrderId { get; set; }
         public OrderViewModel Order { get; set; }
     }
 }

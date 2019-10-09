@@ -38,7 +38,7 @@ Further in the DataAccess layer we implement the LamazonDbContext class that we 
 
 Here we also override the OnModelCreating() method and specify all the relations between our entities. In other words we tell the EntityFramework how to configure the database we want. Also we seed some data in the same method.
 
-(Read about the services implementation before this paragpraph) <br>
+**(Read about the services implementation before this paragpraph!!!)** <br>
 After all of this, we open the NugetPackageManager Console, select the SEDC.Lamazon.DataAccess project as a Default one, and type the two already known commands. 
 * `Add-Migration Initial`(or whatever name would you prefer)
 * `Update-Database`
@@ -47,16 +47,24 @@ After all of this, we open the NugetPackageManager Console, select the SEDC.Lama
 This projcet is where all the business logic is located. Here we also separate the structure in three folders. Helpers, Interfaces and Services folder. In the services folder we implement all the services for every entity with all the methods 
 
 * #### Helpers
-In this folder we create our helper classes. They are AppSettings.cs and DIModule.cs
+In this folder we create our helper classes. They are AppSettings.cs, DIModule.cs and MappingProfile.cs
 1. AppSettings.cs - In this class we only declare one property that we will use just as a helper to get the connection string to our database from the appSettings.json file
 
 2. DIModule.cs - In this class we add one static method that will return IServiceCollection with two input parametars as it is shown further and it is called RegisterModule(IServiceCollection services, string connectionString). 
 
-As the N-tier architecture specifies, we don't want reference from DataAccess layer to our Presentation layer or the Application layer. Since we have to register our Repositories and Services in Startup.cs which is located in the Application layer we must reference DataAccess project with the Application project (Which we don't want by any chance!!!).
+3. MappingProfile.cs - In this class we configure AutoMapper, which we use so that we can map our domain models into a ViewModels. In order to do this we need to install the appropriate NuGet Packages first which are the following: 
 
-So the purpose of this helper class is to make a "ring road" so instead of referencing the DataAccess and Application, we reference the DataAccess with the Services layer (which is ok!). In the RegisterModule method we don't do nothing special, only registering the DbContext and our Repositories and Services, just as we did on MVC, but directly in the Startup.cs Then we call this method in the Startup.cs class, and again the same goal is achieved, just according to the N-tier architecture rules. 
+* In services: AutoMapper v7.01
+* In WebApplication: AutoMapper.DependencyInjection v5.0.1
+* Add in Startup.cs services.AddAutoMapper();
 
-After we register this in our Startup.cs class, then we start with the migrations and database thing.(Go back to the last paragraph of the previous section).
+
+
+As the N-tier architecture specifies, we don't want reference from DataAccess layer to our Presentation layer (or the Application layer). Since we have to register our Repositories and Services in Startup.cs which is located in the Application layer we must reference DataAccess project with the Application project (Which we don't want by any chance!!!).
+
+So the purpose of this helper class is to make a "ring road" so instead of referencing the DataAccess and Application, we reference the DataAccess with the Services layer (which is OK!). In the RegisterModule method we don't do nothing special, only registering the DbContext and our Repositories and Services, just as we did on MVC course, but directly in the Startup.cs Then we call this method in the Startup.cs class, and again the same goal is achieved, just according to the N-tier architecture rules. 
+
+After we register this in our Startup.cs class, then we start with the migrations and database thing.**(Go back to the last paragraph of the previous section).**
 
 * #### Interfaces
 In this folder we have the interfaces as an abstraction to our services.
@@ -64,6 +72,22 @@ In this folder we have the interfaces as an abstraction to our services.
 * #### Services 
 In this folder we have the actual Service classes with implementation of all the CRUD methods that communicate with the appropriate repositories so that we can store in or read from the database.
 
+### SEDC.Lamazon.WebModels
+In this project we create the ViewModels, the models that we send to the Views, and that are used for data binding when trying to register a user, or login and so on. We add here the appropriate enums as well. 
 
+### SEDC.Lamazon.Web
 
+* #### Controllers
+
+Finally we come to the main point, the MVC application itself, or the Application layer. Here we think of all the entities that we need to create a separate controllers for. So we create the controllers and their appropriate actions. For the purposes of our application we created four custom controllers, plus the one that is created with the starting template of an MVC application. The five controllers were:
+
+1. HomeController
+2. UsersController
+3. OrderController
+4. OrderController
+5. InvoiceController
+
+* #### Views
+
+In the Views folder we added the appropriate views so that we can display the data to the user, create new orders, register users and so on.
 

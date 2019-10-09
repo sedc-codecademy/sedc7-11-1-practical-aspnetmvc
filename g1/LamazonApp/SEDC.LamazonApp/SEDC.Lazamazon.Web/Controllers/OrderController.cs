@@ -17,24 +17,32 @@ namespace SEDC.Lazamazon.Web.Controllers
         private readonly IOrderService _orderService;
         private readonly IUserService _userService;
         private readonly IProductService _productService;
+        private readonly IInvoiceService _invoiceService;
         private readonly IToastNotification _toastNotification;
 
         public OrderController(IOrderService orderService,
                                IUserService userService,
                                IProductService productService,
+                               IInvoiceService invoiceService,
                                IToastNotification toastNotification)
         {
             _orderService = orderService;
             _userService = userService;
             _productService = productService;
+            _invoiceService = invoiceService;
             _toastNotification = toastNotification;
         }
 
         [Authorize(Roles = "user")]
-        public IActionResult Order()
+        public IActionResult Order(int? orderId = null)
         {
             UserViewModel user = _userService.GetCurrentUser(User.Identity.Name);
             var order = _orderService.GetCurrentOrder(user.Id);
+            if (order.Invoice == null)
+            {
+                order.Invoice = new InvoiceViewModel();
+            }
+
             return View(order);
         }
 
@@ -46,7 +54,7 @@ namespace SEDC.Lazamazon.Web.Controllers
 
             if (order.Id > 0)
             {
-                return View("order", order);                
+                return View("order", order);
             }
             else
             {
@@ -66,7 +74,7 @@ namespace SEDC.Lazamazon.Web.Controllers
             string productName;
             int result = _orderService.AddProduct(order.Id, productId, user.Id, out productName);
 
-            if(result >= 0)
+            if (result >= 0)
             {
                 //string message1 = $"Product {productName} added to cart successfully!";
                 string message = String.Format("Product {0} added to cart successfully!", productName);
@@ -117,7 +125,7 @@ namespace SEDC.Lazamazon.Web.Controllers
             //                                .ToList();
             _orderService.ChangeStatus(orderId, user.Id, (StatusTypeViewModel)statusId);
 
-            return RedirectToAction("products", "product");
+            return RedirectToAction("ListOrders", "order");
 
         }
 
@@ -132,6 +140,7 @@ namespace SEDC.Lazamazon.Web.Controllers
         public IActionResult ConfirmOrder(int orderId)
         {
             OrderViewModel order = _orderService.GetOrderById(orderId);
+            UserViewModel user = _userService.GetCurrentUser(User.Identity.Name);
             _orderService.ChangeStatus(orderId, order.User.Id, StatusTypeViewModel.Confirmed);
             return RedirectToAction("listallorders");
         }

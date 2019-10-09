@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NToastNotify;
 using SEDC.Lamazon.Services.Interfaces;
 using SEDC.Lamazon.WebModels_.ViewModels;
+using Serilog;
 
 namespace SEDC.Lazamazon.Web.Controllers
 {
@@ -13,6 +15,7 @@ namespace SEDC.Lazamazon.Web.Controllers
     {
         private readonly IUserService _userService;
         private readonly IToastNotification _toastNotification;
+        
 
         public UsersController(IUserService userService, IToastNotification toastNotification)
         {
@@ -35,9 +38,17 @@ namespace SEDC.Lazamazon.Web.Controllers
                 if (User.IsInRole("admin"))
                 {
                     _toastNotification.AddSuccessToastMessage("You have successfully loged in!");
+
+
+                    Log.Information($"User with username {model.Username} logged in as admin!");
+
                     return RedirectToAction("listallorders", "order");
                 }
+                Thread.Sleep(1000);
                 _toastNotification.AddSuccessToastMessage("You have successfully loged in!");
+
+                Log.Error($"User with username {model.Username} logged in as regular user!");
+
                 return RedirectToAction("products", "product");
             }
             _toastNotification.AddWarningToastMessage("Username or password are incorect!");

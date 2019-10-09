@@ -41,7 +41,7 @@ namespace SEDC.Lamazon.Services.Services
                 {
                     UserName = user.UserName,
                     Id = user.Id,
-                    FullName = user.FullName
+                    FullName = user.FullName,
                 };
             }
             catch (Exception ex)
@@ -60,6 +60,8 @@ namespace SEDC.Lamazon.Services.Services
             {
                 throw new Exception("Username or Password is not correct!");
             }
+            //Log.Information($"User with username {loginModel.Username} logged in successfully!");
+
         }
 
         public void Logout()

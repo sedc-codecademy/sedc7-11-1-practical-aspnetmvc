@@ -59,12 +59,14 @@ namespace SEDC.Lazamazon.Web
             services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
             {
                 ProgressBar = false,
-                PositionClass = ToastPositions.TopRight
+                PositionClass = ToastPositions.TopRight,
+                CloseButton = true
             });
 
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IInvoiceService, InvoiceService>();
 
 
             services.AddAutoMapper();

@@ -13,5 +13,6 @@ namespace SEDC.Lamazon.WebModels_.ViewModels
         public double Price => Products.Sum(p => p.Price);
         public UserViewModel User { get; set; }
         public IEnumerable<ProductViewModel> Products { get; set; }
+        public InvoiceViewModel Invoice { get; set; }
     }
 }

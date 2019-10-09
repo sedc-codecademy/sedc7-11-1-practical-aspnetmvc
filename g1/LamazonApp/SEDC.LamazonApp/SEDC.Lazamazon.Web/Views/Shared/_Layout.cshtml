@@ -13,6 +13,9 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
+        <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
@@ -41,7 +44,6 @@
                     @if (isAdmin)
                     {
                         <li><a asp-area="" asp-controller="Order" asp-action="ListAllOrders">All orders</a></li>
-                        <li class="align-right"><a asp-area="" asp-controller="Users" asp-action="LogOut">Log out</a></li>
                     }
                     else
                     {
@@ -50,15 +52,21 @@
                             <li><a asp-area="" asp-controller="Order" asp-action="Order">Current order</a></li>
                             <li><a asp-area="" asp-controller="Order" asp-action="ListOrders">My orders</a></li>
                             <li><a asp-area="" asp-controller="Product" asp-action="Products">Products</a></li>
-                            <li class="align-right"><a asp-area="" asp-controller="Users" asp-action="LogOut">Log out</a></li>
-                        }
-                        else
-                        {
-                            <li class="align-right"><a asp-area="" asp-controller="Users" asp-action="LogIn">Log in</a></li>
                         }
                     }
-
                 </ul>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="align-right"><a asp-area="" asp-controller="Users" asp-action="LogOut">Log out</a></li>
+                    </ul>
+                }
+                else
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="align-right"><a asp-area="" asp-controller="Users" asp-action="LogIn">Log in</a></li>
+                    </ul>
+                }
             </div>
         </div>
     </nav>

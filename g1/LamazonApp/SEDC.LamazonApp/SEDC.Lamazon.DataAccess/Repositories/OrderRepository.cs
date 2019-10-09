@@ -15,6 +15,7 @@ namespace SEDC.Lamazon.DataAccess.Repositories
         public IEnumerable<Order> GetAll()
         {
             return _context.Orders
+                .Include(o => o.Invoice)
                 .Include(o => o.ProductOrders)
                 .ThenInclude(po => po.Product)
                 .Include(o => o.User);
@@ -26,6 +27,7 @@ namespace SEDC.Lamazon.DataAccess.Repositories
                 .Include(o => o.ProductOrders)
                 .ThenInclude(po => po.Product)
                 .Include(o => o.User)
+                .Include(o => o.Invoice)
                 .FirstOrDefault(o => o.Id == id);
         }
 

@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Order";
     var statusInit = StatusTypeViewModel.Init;
+    var statusProcess = StatusTypeViewModel.Processing;
 }
 
 <h1>Order</h1>
@@ -47,6 +48,10 @@
                     {
                         <a asp-controller="order" asp-action="changestatus" asp-route-orderId="@Model.Id" asp-route-statusId="1" class="btn btn-info">Proceed</a>
                     }
+                    else if (Model.Status == statusProcess)
+                    {
+                        <a data-toggle="modal" data-target="#modalContactForm" class="btn btn-info">Invoice</a>
+                    }
                 }
                 else
                 {
@@ -57,3 +62,80 @@
     </div>
 </div>
 
+<div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Fill the needed info to proceed!</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-3">
+                <div class="container">
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form id="invoiceForm" asp-controller="invoice" asp-action="create">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label asp-for="@Model.Invoice.Address"></label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></span>
+                                            <input id="address" type="text" class="form-control" placeholder="Address" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <br />
+                                    <div class="col-md-4">
+                                        <label asp-for="@Model.Invoice.PaymentType"></label>
+                                        <select class="form-control" 
+                                                asp-for="@Model.Invoice.PaymentType" 
+                                                asp-items="Html.GetEnumSelectList<PaymentTypeViewModel>()">
+
+                                            <option selected="selected" value="">Please select</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="modal-footer d-flex justify-content-center">
+                                            <a id="submitInvoiceForm" class="btn btn-info">Invoice</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        let modalForm = $("#modalContactForm");
+         
+    })
+
+    let submitBtn = $("#submitInvoiceForm");
+    $(submitBtn).click(function () {
+            let form = $("#invoiceForm");
+        console.log(form[0])
+
+            let address = $("#address").val();
+            let paymentType = $("#Invoice_PaymentType").val();
+
+            let url = "/invoice/create?address=" + address + "&paymentType=" + paymentType + "&orderId=" + @Model.Id
+            fetch(url, {
+                method: "POST"
+            }).then(res => { 
+                let redirectUrl = res.url;
+                window.location = redirectUrl;
+            });
+    })
+</script>
